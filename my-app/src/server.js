@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || "3000";
 
 
-const MongoURI = 'mongodb+srv://alaa:1234@cluster0.6ulyk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority' ;
+const MongoURI = 'mongodb+srv://test123:test123@cluster0.nf446.mongodb.net/AdvancedComputerLab?retryWrites=true&w=majority' ;
 
 
 
