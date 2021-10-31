@@ -13,7 +13,7 @@ class ViewFlights extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:8000/admin/')
+      .get('http://localhost:8000/admin/showall')
       .then(res => {
         this.setState({
           flights: res.data
