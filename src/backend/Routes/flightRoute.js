@@ -1,4 +1,5 @@
 const express = require('express');
+
 const flightsController = require('../controller/flightsController');
 
 const router = express.Router();
@@ -8,4 +9,6 @@ router.get('/search', flightsController.flight_find);
 // router.get('/update/:id', userController.user_update);
 router.delete('/delete_flight/:id',flightsController.delete_flight)
 router.post('/update/:id',flightsController.update_flight);
+
+
 module.exports = router;

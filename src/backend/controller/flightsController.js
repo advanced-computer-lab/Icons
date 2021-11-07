@@ -1,4 +1,6 @@
 const Flights = require('../Models/flights');
+const express=require('express');
+const router=express.Router();
 //create , serach , edit , delete , show all //
 
 
@@ -62,38 +64,40 @@ const flight_create = (req, res) => {
    }
 
 
+
    const update_flight =  (req, res) => {
-    try{
+   try{
+
+     Flights.findByIdAndUpdate( req.params.id,req.body).then(result => {
+
+          res.send("Your Flight was updated successfully!")
+          console.log("updated")
+        })
+      
+      
  
-      Flights.findByIdAndUpdate( req.params.id,req.body).then(result => {
- 
-           res.send("Your Flight was updated successfully!")
-           console.log("updated")
-         })
-       
-       
-  
-    }
-    catch(error){
-    res.send(error);
-    console.log(error);
-    }
-    }
+   }
+   catch(error){
+   res.send(error);
+   console.log(error);
+   }
+   }
+   
+   ///Delete Flight
+  const delete_flight  =  (req, res) => {
+     try{
     
-    ///Delete Flight
-   const delete_flight  =  (req, res) => {
-      try{
-     
-       Flights.findByIdAndDelete(req.params.id).then(result => {
-         console.log("deleted")
-       })
- 
-      }
-    catch(error){
-      res.send(error);
-      console.log(error);
-      }
-      }
+      Flights.findByIdAndDelete(req.params.id).then(result => {
+        console.log("deleted")
+      })
+
+     }
+   catch(error){
+     res.send(error);
+     console.log(error);
+     }
+     }
+   
 
 
 module.exports = {
@@ -102,6 +106,5 @@ module.exports = {
     flight_findall,
     update_flight,
     delete_flight
-    
   }
 
