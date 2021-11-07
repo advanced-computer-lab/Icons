@@ -26,7 +26,20 @@ class FlightInfo extends Component {
       })
   };
 
-  
+
+  onDeleteClick (id) {
+      console.log(id);
+    axios
+    .delete('http://localhost:8000/admin/delete_flight/'+id)
+      .then(res => {
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log("Error form ShowFlightDetails_deleteClick");
+      })
+  };
+
+
   
 
   render() {
@@ -118,7 +131,13 @@ class FlightInfo extends Component {
           <div className="row">
             <div className="col-md-6">
             <div className='delete-button'   >
+
+              <button type="button" className="btn btn-outline-danger btn-lg btn-block" onClick={ () => { if(window.confirm('Are you sure you want to delete this flight ?') == true ) {
+                this.onDeleteClick(flights._id) ; 
+              };}}  >Delete Flight</button>
+
               <button type="button" className="btn btn-outline-danger btn-lg btn-block" >Delete Flight</button>
+
               </div>
               <br />
             </div>
