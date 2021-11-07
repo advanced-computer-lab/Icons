@@ -62,25 +62,51 @@ const flight_create = (req, res) => {
    }
 
 
-  //  const flight_update = (req, res) => {
-  //   const id = req.params.id;
-  //   User.findById(id).update({Name :'SALAH'})
-  //     .then(result => {
-  //       res.redirect('/all');
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
 
-
+   const update_flight =  (req, res) => {
+    try{
+ 
+      Flights.findByIdAndUpdate( req.params.id,req.body).then(result => {
+ 
+           res.send("Your Flight was updated successfully!")
+           console.log("updated")
+         })
+       
+       
+  
+    }
+    catch(error){
+    res.send(error);
+    console.log(error);
+    }
+    }
+    
+    ///Delete Flight
+   const delete_flight  =  (req, res) => {
+      try{
+     
+       Flights.findByIdAndDelete(req.params.id).then(result => {
+         console.log("deleted")
+       })
+ 
+      }
+    catch(error){
+      res.send(error);
+      console.log(error);
+      }
+      }
 
 
 module.exports = {
     flight_create,
     flight_find,
-    flight_findall
+
+    flight_findall,
+    update_flight,
+    delete_flight
+
    
+
     
   }
 
