@@ -62,6 +62,7 @@ const flight_create = (req, res) => {
    }
 
 
+
    const update_flight =  (req, res) => {
     try{
  
@@ -99,9 +100,13 @@ const flight_create = (req, res) => {
 module.exports = {
     flight_create,
     flight_find,
+
     flight_findall,
     update_flight,
     delete_flight
+
+   
+
     
   }
 

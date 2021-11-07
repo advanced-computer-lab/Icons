@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import CreateFlight from './Admincomponents/CreateFlight';
 
+
 import ViewFlights from './Admincomponents/ViewFlights';
 
 
@@ -12,17 +13,21 @@ import UpdateFlight from './Admincomponents/UpdateFlight';
 import SearchFlights from './Admincomponents/SearchFlights';
 
 
+
 class App extends Component  {
   render (){
   return (
     <Router>
         <div>
+
         <Route exact path='/' component={ViewFlights} />
         <Route path='/create_flight' component={CreateFlight} />
         <Route path='/update_flight/:id' component={UpdateFlight}/>
           <Route path='/flight_info/:id' component={FlightInfo} />
 
           <Route path='/search_flight' component={SearchFlights} />
+
+
     
         </div>
       </Router>
