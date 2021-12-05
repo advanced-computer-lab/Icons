@@ -8,6 +8,7 @@ import SearchFlights from './Admincomponents/SearchFlights';
 import UpdateFlight from './Admincomponents/UpdateFlight';
 import ViewFlights from './Admincomponents/ViewFlights';
 import ViewSearchResults from './Admincomponents/ViewSearchResults';
+import UpdateUser from './Usercomponents/UpdateUser';
 class App extends Component {
   render() {
     return (
@@ -19,6 +20,9 @@ class App extends Component {
           <Route path='/flight_info/:id' component={FlightInfo} />
           <Route path='/search_flight' component={SearchFlights} />
           <Route path='/search_flight_results' component={ViewSearchResults} />
+          <Route path='/update_user' component={UpdateUser} />
+          <Route path='/Guest_Summary/:id' component={Guest_Summary} />
+          <Route path='/returnflight_results/:id' component={UserSearchReturn} />
         </div>
       </Router>
     );
