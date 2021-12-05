@@ -49,7 +49,7 @@ const Flight3 = (props) => {
 
 <p>Flight Duration : {flight.flight_duration}</p> 
                 
-
+<p>Baggae allowance : {flight. Baggage_allowance }</p> 
             </div>
         </div>
     )
