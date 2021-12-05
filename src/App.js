@@ -7,7 +7,7 @@ const cors = require('cors')
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || "8000";
-
+const smtpTransport = require('nodemailer-smtp-transport');
 
 const MongoURI  = process.env.MONGOLAB_URI ;
 
@@ -23,6 +23,8 @@ app.use(cors())
 
 app.use('/user',userRoutes);
 app.use('/admin',flightRoutes);
+
+
 
 
 app.listen(port, () => {

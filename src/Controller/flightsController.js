@@ -1,12 +1,13 @@
 const Flights = require('../Models/flights');
 //create , serach , edit , delete , show all //
-
+const Seats = require('../Models/seats');
 var temp ;
-
-
+var temp1;
+var temp2;
+var flno;
 //CREATE FLIGHT //
 const flight_create = (req, res) => {
-//  console.log(req.body)
+
     const flights= new Flights({
     
         Flight_number: req.body.Flight_number,
@@ -21,7 +22,9 @@ const flight_create = (req, res) => {
         
         
      } )
-      
+     temp1 = Number(req.body.Number_of_Economy_Seats)
+     temp2 = Number(req.body.Number_of_Business_Class_Seats)
+      flno = req.body.Flight_number
     flights.save()
       .then(result => {
         res.send(result);
@@ -34,6 +37,9 @@ const flight_create = (req, res) => {
        
       });
   }
+
+
+
 
 //SEARCH FOR SPECIFIC FLIGHT //
   const flight_find = (req, res) => {
@@ -150,5 +156,6 @@ module.exports = {
     update_flight,
     flight_info,
     flight_findall2
+ 
   }
 

@@ -19,7 +19,7 @@ const Flight = (props) => {
         
                 
                 
-                  <p> Deaprture Date : {flight.Departure_date}</p>
+                  <p> Departure Date : {flight.Departure_date}</p>
                   
                   <p> Arrival Date : {flight.Arrival_date}</p>
                 
@@ -29,12 +29,21 @@ const Flight = (props) => {
                 
                   <p>  Departure Airport : {flight.Departure_airport} </p>
                   
-                <p> Arrival Airport : {flight.Arrival_airport}</p>
+                  <p> Arrival Airport : {flight.Arrival_airport}</p>
                 
                   <p> Bussiness class seats :{flight.Number_of_Business_Class_Seats}</p>
 
                   <p>Economy seats : {flight.Number_of_Economy_Seats}</p>
-                
+
+                  <p>Availlable Economy seats : {flight.Availlable_Number_of_Economy_Seats}</p>
+
+                  <p>Availlable Bussiness  seats : {flight.Availlable_Number_of_Business_Class_Seats}</p>
+
+                  <p>Economy Seat price : {flight.Economy_price}</p>
+
+                  <p>Bussiness Seat price : {flight.Bussiness_price }</p>
+                  
+                  <p>Flight Duration : {flight.flight_duration}</p>
 
             </div>
         </div>
