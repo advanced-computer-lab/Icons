@@ -23,6 +23,14 @@ const flightsSchema = new Schema({
     type: Number,
     required: true
   },
+  Availlable_Number_of_Business_Class_Seats: {
+    type: Number,
+    required: true
+  },
+ Availlable_Number_of_Economy_Seats: {
+    type: Number,
+    required: true
+  },
   Arrival_airport: {
     type: String,
     required: true
@@ -38,7 +46,24 @@ const flightsSchema = new Schema({
  Departure_date: {
     type: Date,
     required: true
+  },
+  Economy_price :{
+    type: String,
+    required: true
+  },
+  flight_duration : {
+    type: String,
+    required: true
+  },
+  Baggage_allowance : {
+    type: String,
+    required: true
+  },
+  Bussiness_price :{
+    type: String,
+    required: true
   }
+
 }, { timestamps: true });
 
 const Flights = mongoose.model('Flights', flightsSchema);

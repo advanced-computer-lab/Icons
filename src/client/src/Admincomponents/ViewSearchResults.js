@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Flight from './Flight';
 
-class ViewFlights extends Component {
+class ViewSearchResults extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,7 @@ class ViewFlights extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:8000/admin/showall')
+      .get('http://localhost:8000/admin/search')
       .then(res => {
         this.setState({
           flights: res.data
@@ -26,8 +26,8 @@ class ViewFlights extends Component {
 
 
   render() {
-    console.log(this.state.flights)
     const flights= this.state.flights;
+    console.log(this.state.flights)
     console.log("PrintFlight: " + flights);
     let flightList;
 
@@ -41,17 +41,13 @@ class ViewFlights extends Component {
 
     return (
       <div className="ShowFlightsList">
-      
-      <Link to="/create_flight"> Create Flight </Link>
+        <Link to="/"> Show FlightList </Link>
       <br/>
-
-      <br/>
-      <Link to="/search_flight"> Search Flight </Link>
         <div className="container">
           <div className="row">
             <div className="col-md-12">
               <br />
-              <h2 className="display-4 text-center"> Available Flights</h2>
+              <h2 className="display-4 text-center"> Search Results </h2>
               
             </div>
 
@@ -66,4 +62,4 @@ class ViewFlights extends Component {
   }
 }
 
-export default ViewFlights;
+export default ViewSearchResults;
