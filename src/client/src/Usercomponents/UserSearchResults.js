@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Flight from './Flight';
+import Flight2 from '../Admincomponents/Flight2';
 
-class ViewSearchResults extends Component {
+class  UserSearchResults  extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,7 @@ class ViewSearchResults extends Component {
 
   componentDidMount() {
     axios
-      .get('http://localhost:8000/admin/search')
+      .get('http://localhost:8000/user/search_Results')
       .then(res => {
         this.setState({
           flights: res.data
@@ -22,12 +22,12 @@ class ViewSearchResults extends Component {
       .catch(err =>{
         console.log('Error from ShowFlightsList');
       })
+     
   };
 
 
   render() {
     const flights= this.state.flights;
-    console.log(this.state.flights)
     console.log("PrintFlight: " + flights);
     let flightList;
 
@@ -35,14 +35,14 @@ class ViewSearchResults extends Component {
       flightList = "there is no flight record!";
     } else {
       flightList = flights.map((flight) =>
-        <Flight flight={flight}  />
+        <Flight2 flight={flight}  />
       );
     }
 
     return (
       <div className="ShowFlightsList">
-        <Link to="/"> Show FlightList </Link>
-      <br/>
+        {/* <Link to="/"> Show FlightList </Link>
+      <br/> */}
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -62,4 +62,4 @@ class ViewSearchResults extends Component {
   }
 }
 
-export default ViewSearchResults;
+export default UserSearchResults;

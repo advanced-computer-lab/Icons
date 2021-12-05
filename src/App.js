@@ -1,12 +1,13 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const flightRoutes = require('./Routes/flightRoute');
-// const userRoutes = require('./Routes/userRoute');
+const userRoutes = require('./Routes/userRoute');
+const  nodemailer = require('nodemailer');
 const cors = require('cors')
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || "8000";
-
+const smtpTransport = require('nodemailer-smtp-transport');
 
 const MongoURI  = process.env.MONGOLAB_URI ;
 
@@ -20,8 +21,10 @@ app.use(cors())
 
 
 
-// app.use('/user',userRoutes);
+app.use('/user',userRoutes);
 app.use('/admin',flightRoutes);
+
+
 
 
 app.listen(port, () => {

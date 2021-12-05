@@ -1,11 +1,9 @@
-
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
 import axios from 'axios';
-class CreateFlight extends Component {
-    constructor() {
-        super();
+class UserSearch extends Component {
+    constructor(pros) {
+        super(pros);
         this.state = {
             Flight_number: '',
             Departure_time: '',
@@ -15,19 +13,34 @@ class CreateFlight extends Component {
             Arrival_airport: '',
             Departure_airport: '',
             Departure_date: '',
-            Arrival_date:''
+            Arrival_date:'',
+            cabin:'' ,
+            number_of_people:'',
+            number_of_children:''
+            
         };
       } 
 
 
-
-
+    
+       
 
       onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
       };
       onSubmit = e => {
         e.preventDefault();
+ 
+     if(this.state.cabin===''){
+   
+    this.state.Number_of_Economy_Seats = Number(this.state.number_of_people) + Number(this.state.number_of_children)
+    this.state.Number_of_Economy_Seats = this.state.Number_of_Economy_Seats + ""
+  }
+     
+     else if (this.state.cabin ==='Bussiness'){
+      this.state.Number_of_Business_Class_Seats = Number(this.state.number_of_people) + Number(this.state.number_of_children)
+      this.state.Number_of_Business_Class_Seats = this.state.Number_of_Business_Class_Seats + ""
+    }
     
         const data = {
        
@@ -39,12 +52,22 @@ class CreateFlight extends Component {
             Arrival_airport: this.state.Arrival_airport,
             Departure_airport: this.state.Departure_airport,
             Departure_date: this.state.Departure_date,
-            Arrival_date:this.state.Arrival_date
+            Arrival_date:this.state.Arrival_date,
+          
         };
 
 
         axios
-        .post('http://localhost:8000/admin/create', data)
+        .get('http://localhost:8000/user/save/'+this.props.match.params.user_id)
+        .then(res => {
+          
+        })
+        .catch(err =>{
+          console.log('Error from ShowFlightsList');
+        })
+       
+        axios
+        .post('http://localhost:8000/user/search', data)
         .then(res => {
           this.setState({
             Flight_number: '',
@@ -55,83 +78,79 @@ class CreateFlight extends Component {
             Arrival_airport: '',
             Departure_airport: '',
             Departure_date: '',
-            Arrival_date:''
+            Arrival_date:'',
+           cabin :'',
+            number_of_people:'',
+            number_of_children:''
           })
-          this.props.history.push('/');
+          
+          this.props.history.push('/search_results');
+        
         })
         .catch(err => {
-          console.log("Error in CreateFlight!");
+          console.log("Error in SearchFlight!");
         })
+        
+     
     };
  render (){
      return (
-        <div className = 'CreateFlight' >
+        <div className = 'UserSearchFlight' >
 
-        <form noValidate onSubmit={this.onSubmit}>
-                        <div className='form-group'>
-                          <input
-                            type='text'
-                            placeholder='Flight_number'
-                            name='Flight_number'
-                            className='form-control'
-                            value={this.state.Flight_number}
-                            onChange={this.onChange}
-                          />
-                        </div>
+        <form Validate onSubmit={this.onSubmit}>
+                      
+        
+        
+                   
                         <br />
-        
-        
-                        <div className='form-group'>
-                          <input
-                            type='text'
-                            placeholder='Departure_time'
-                            name='Departure_time'
-                            className='form-control'
-                            value={this.state.Departure_time }
-                            onChange={this.onChange}
-                          />
-                        </div>
                         <br />
                         <div className='form-group'>
-                          <input
-                            type='text'
-                            placeholder='Arrival_time'
-                            name='Arrival_time'
-                            className='form-control'
-                            value={this.state.Arrival_time}
-                            onChange={this.onChange}
-                          />
+                        <label for="cabin">Cabin class: </label>
+                        <select name = 'cabin' id = 'cabin' value ={this.state.cabin} onChange={this.onChange}>
+                        <  option  value='Economy' >Economy</option>
+                        <option value='Bussiness'>Bussines</option>
+                        
+                         
+                        </select>
+                      
+                        
+                        
                         </div>
                         <br />
-        
-        
+   
                         <div className='form-group'>
+                         
                           <input
                             type='number'
                             min="1"
-                            placeholder='Number_of_Economy_Seats'
-                            name='Number_of_Economy_Seats'
+                            required 
+                            placeholder=' Number_of_Adults '
+                            name='number_of_people'
                             className='form-control'
-                            value={this.state.Number_of_Economy_Seats}
+                            value={this.state.number_of_people}
                             onChange={this.onChange}
                           />
                         </div>
                         <br />
                         <div className='form-group'>
+                          
                           <input
                             type='number'
-                            min="1"
-                            placeholder='Number_of_Business_Class_Seats'
-                            name='Number_of_Business_Class_Seats'
+                           min="0"
+                            required 
+                            placeholder='number_of_children:'
+                            name='number_of_children'
                             className='form-control'
-                            value={this.state.Number_of_Business_Class_Seats}
+                            value={this.state.number_of_children}
                             onChange={this.onChange}
                           />
                         </div>
                         <br />
+                       
                         <div className='form-group'>
                           <input
                             type='text'
+                            required 
                             placeholder='Arrival_airport'
                             name='Arrival_airport'
                             className='form-control'
@@ -143,6 +162,7 @@ class CreateFlight extends Component {
                         <div className='form-group'>
                           <input
                             type='text'
+                            required 
                             placeholder='Departure_airport'
                             name='Departure_airport'
                             className='form-control'
@@ -152,8 +172,13 @@ class CreateFlight extends Component {
                         </div>
                         <br />
                         <div className='form-group'>
+                          <label>
+                            Departure Date :
+                            </label>
+                            
                           <input
                             type='date'
+                            required 
                             placeholder='Departure_date'
                             name='Departure_date'
                             className='form-control'
@@ -163,8 +188,14 @@ class CreateFlight extends Component {
                         </div>
                         <br />
                         <div className='form-group'>
-                          <input
+                        <label>
+                            Arrival Date :
+                           
+                            </label>
+                            
+                          <input 
                             type='date'
+                            required 
                             placeholder='Arrival_date'
                             name='Arrival_date'
                             className='form-control'
@@ -176,6 +207,7 @@ class CreateFlight extends Component {
                         <input
                             type="submit"
                             className="btn btn-outline-warning btn-block mt-4"
+                            value='search'
                         />
          </form>
             </div>
@@ -185,4 +217,4 @@ class CreateFlight extends Component {
 }
 
 
-export default CreateFlight;
+export default UserSearch;

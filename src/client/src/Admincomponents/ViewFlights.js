@@ -26,6 +26,7 @@ class ViewFlights extends Component {
 
 
   render() {
+    console.log(this.state.flights)
     const flights= this.state.flights;
     console.log("PrintFlight: " + flights);
     let flightList;
