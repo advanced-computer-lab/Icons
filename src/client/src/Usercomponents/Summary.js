@@ -17,7 +17,7 @@ class Summary extends Component {
    
  
     axios
-    .get('http://localhost:8000/user/helper6')
+    .get('http://localhost:8000/user/final_summary/'+this.props.match.params.user_id+'/'+this.props.match.params.id+'/'+this.props.match.params.id2)
     .then(res => {
       
       this.setState({
@@ -29,18 +29,19 @@ class Summary extends Component {
     .catch(err =>{
       console.log('Error from ShowFlightsList');
     })
-console.log(this.state.summarys)
-      
-   if(this.state.summarys.length == 0){
-     this.setState({})
-   }
+
    
 };
    
+onSubmit = e => {
+  e.preventDefault();
+ 
+  this.props.history.push('/Thankyou/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2);
 
+};
 
   render() {
-  console.log(this.props.match.params.user_id)
+ 
 
  
     const summarys = this.state.summarys;
@@ -75,11 +76,12 @@ console.log(summarys)
           <div className="list">
                 { summaryList}
           </div>
-          <Link to={`/Current_Reservations/${this.props.match.params.user_id}`}>
+          {/* <Link to={`/Current_Reservations/${this.props.match.params.user_id}`}>
      <button type="button">
          Proceed 
      </button>
- </Link>
+ </Link> */}
+  <button type="submit" onClick = {this.onSubmit} className="btn btn-outline-info btn-lg btn-block">proceed</button>
         </div>
         
       </div>

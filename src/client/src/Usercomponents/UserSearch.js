@@ -30,6 +30,7 @@ class UserSearch extends Component {
       };
       onSubmit = e => {
         e.preventDefault();
+       
  
      if(this.state.cabin===''){
    
@@ -41,6 +42,10 @@ class UserSearch extends Component {
       this.state.Number_of_Business_Class_Seats = Number(this.state.number_of_people) + Number(this.state.number_of_children)
       this.state.Number_of_Business_Class_Seats = this.state.Number_of_Business_Class_Seats + ""
     }
+    if(this.state.Arrival_date < this.state.Departure_date){
+      alert('deparutre date must be greater or equal to arrival date ')
+    }
+    else {
     
         const data = {
        
@@ -57,14 +62,7 @@ class UserSearch extends Component {
         };
 
 
-        axios
-        .get('http://localhost:8000/user/save/'+this.props.match.params.user_id)
-        .then(res => {
-          
-        })
-        .catch(err =>{
-          console.log('Error from ShowFlightsList');
-        })
+        
        
         axios
         .post('http://localhost:8000/user/search', data)
@@ -83,14 +81,18 @@ class UserSearch extends Component {
             number_of_people:'',
             number_of_children:''
           })
-          
-          this.props.history.push('/search_results');
-        
+        if(res.data.length == 0){
+         alert('no flights matches your search criteria')
+        }
+        else {
+         this.props.history.push('/search_results/'+this.props.match.params.user_id);
+        }
         })
+      
         .catch(err => {
           console.log("Error in SearchFlight!");
         })
-        
+      }
      
     };
  render (){

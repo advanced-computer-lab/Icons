@@ -77,23 +77,21 @@ const reservationsSchema = new Schema({
   Departure_seats :[{
       
   
-  type: String,
-    required: true
+  
       
   }],
 
   Departure_seats_id :[{
-    type: String,
-    required: true
+    // type: String,
+    // required: true
   }],
   Return_seats_id: [{
-    type: String,
-    required: true
+    // type: String,
+    // required: true
   }],
 
   Return_seats :[{
       
-    type:String
 
 }],
   booking_number:{

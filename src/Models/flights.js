@@ -59,6 +59,12 @@ const flightsSchema = new Schema({
     type: String,
     required: true
   },
+  Seats_Economy:[{
+  
+  }],
+  Seats_Bussiness:[{
+   
+  }],
   Bussiness_price :{
     type: String,
     required: true

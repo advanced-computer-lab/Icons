@@ -29,10 +29,10 @@ class CurrentReservations extends Component {
     })
    
 
-    if(this.state.summarys.length == 0){
+    // if(this.state.summarys.length == 0){
         
-      this.setState({})
-    }
+    //   this.setState({})
+    // }
 };
    
 

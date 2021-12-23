@@ -23,19 +23,14 @@ class  UserSearchReturn extends Component {
       .catch(err =>{
         console.log('Error from ShowFlightsList');
       })
-      axios
-      .get('http://localhost:8000/user/getdepartureflightnumber/'+this.props.match.params.id)
-      .then(res => {
-       
-      })
-      .catch(err =>{
-        console.log('Error from ShowFlightsList');
-      })
+ 
   
      
      
   };
-
+  handledelete = (id2) =>{
+    this.props.history.push('/Guest_Summary/'+this.props.match.params.user_id+'/'+this.props.match.params.id+'/'+id2);
+  };
 
   render() {
     const flights= this.state.flights;
@@ -46,7 +41,7 @@ class  UserSearchReturn extends Component {
       flightList = "there is no flight record!";
     } else {
       flightList = flights.map((flight) =>
-        <Flight3 flight={flight}  />
+        <Flight3 flight={flight} handledelete = {this.handledelete} />
       );
       
     }

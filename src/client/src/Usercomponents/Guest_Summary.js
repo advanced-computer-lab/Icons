@@ -10,65 +10,39 @@ class Guest_Summary extends Component {
       summarys: [
 
       ],
-      persons:''
+      
     };
   }
 
   componentDidMount() {
    
-  
-
     axios
-    .get('http://localhost:8000/user/getretrunflightnumber/'+this.props.match.params.id)
-    .then(res => {
-     
-    })
-    .catch(err =>{
-      console.log('Error from ShowFlightsList');
-    })
-
- 
-    axios
-    .get('http://localhost:8000/user/guest_summary/'+this.props.match.params.id)
+    .get('http://localhost:8000/user/guest_summary/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2)
     .then(res => {
       
       this.setState({
         summarys: res.data
        })
+      
     })
-    .catch(err =>{
-      console.log('Error from ShowFlightsList');
-    })
+
+   
     
-      // if(this.state.summarys.length == 0){
-        
-      //   this.setState({})
-      // }
-    
-      axios
-      .get('http://localhost:8000/user/send_id')
-      .then(res => {
-         
-        
-          const persons = (res.data);
-          this.setState({ persons });
-       //   console.log(res.data);
-      })
-      .catch(err => {
-        console.log("Error from ShowFlightDetails");
-      })
+      
 };
    
 onSubmit = e => {
   e.preventDefault();
  
-console.log(this.state.persons)
- if(this.state.persons == "undefined"){
-  this.props.history.push('/login');
- }
- else {
-  this.props.history.push('/Departure_seats/'+this.state.persons);
- }
+
+if(this.props.match.params.id == "undefined"){
+alert('you need to login')
+
+this.props.history.push('/test2')
+}
+else {
+  this.props.history.push('/Departure_seats/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2);
+}
 };
 
   render() {

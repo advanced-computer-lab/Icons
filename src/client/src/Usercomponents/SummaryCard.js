@@ -6,15 +6,19 @@ const SummaryCard = (props) => {
     const  summary  = props.summary;
     var str='' ;
     var str2='';
-for(var i =0 ;i<summary.Departure_seats.length;i++){
-    if(str !=''){
- str =  str + ", " + summary.Departure_seats[i]
- str2 =  str2 + ", " + summary.Return_seats[i]
-    }
- else {
-     str = summary.Departure_seats[i]
-     str2 = summary.Return_seats[i]
- }
+for(var i =0 ;i<summary.dep_seats.length;i++){
+  if(i==0){
+      str = summary.dep_seats[0]+" , "
+      str2 = summary.return_seats[0]+" , "
+  }
+  else if(i== summary.dep_seats.length -1 ){
+    str =str + summary.dep_seats[i]
+    str2 =str2 + summary.return_seats[i]
+  }
+  else {
+    str =str + summary.dep_seats[i]+" , "
+    str2 =str2 + summary.return_seats[i] +" , "
+  }
  }
 
 

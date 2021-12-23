@@ -6,43 +6,58 @@ import Flight2 from '../Admincomponents/Flight2';
 class  UserSearchResults  extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       flights: []
+    
+     
+    
     };
   }
 
   componentDidMount() {
+    
     axios
       .get('http://localhost:8000/user/search_Results')
       .then(res => {
         this.setState({
           flights: res.data
+          
+          
+          
         })
       })
       .catch(err =>{
         console.log('Error from ShowFlightsList');
       })
-     
+    
   };
 
-
+  handledelete = (id) =>{
+  this.props.history.push('/returnflight_results/'+this.props.match.params.user_id+'/'+id);
+};
   render() {
+ 
+
+
     const flights= this.state.flights;
     console.log("PrintFlight: " + flights);
     let flightList;
-
+   
     if(!flights) {
       flightList = "there is no flight record!";
-    } else {
+     } else {
       flightList = flights.map((flight) =>
-        <Flight2 flight={flight}  />
+        <Flight2 flight={flight} handledelete = {this.handledelete} />
+        
       );
-    }
+    
+      }
+    
 
     return (
       <div className="ShowFlightsList">
-        {/* <Link to="/"> Show FlightList </Link>
-      <br/> */}
+       
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -54,7 +69,9 @@ class  UserSearchResults  extends Component {
           </div>
 
           <div className="list">
-                {flightList}
+                {flightList} 
+ 
+               
           </div>
         </div>
       </div>

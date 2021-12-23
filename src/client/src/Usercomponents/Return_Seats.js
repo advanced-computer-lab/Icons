@@ -2,14 +2,17 @@ import React, {Component} from 'react'
 import axios from 'axios';
 import SeatPicker from 'react-seat-picker'
 import { Link } from 'react-router-dom';
-
+const array = [] ;  
+const array2 = [];
 export default class Return_Seats extends Component {
-     
+
   state = {
     loading: false ,
     persons:0,
     flag : '',
-    rows : []
+    rows : [],
+    counter :0,
+    seats:[]
   
 
   }
@@ -20,6 +23,8 @@ export default class Return_Seats extends Component {
   
      
   addSeatCallback = ({ row, number, id }, addCb) => {
+    
+    this.setState({counter:this.state.counter+1})
     this.setState({
       loading: true,
      
@@ -29,32 +34,22 @@ export default class Return_Seats extends Component {
       //const newTooltip = `tooltip for id-${id} added by callback`
       addCb(row, number, id)
       this.setState({ loading: false })
+      
     })
-   
+   array.push(id);
+   array2.push(row+""+number)
+console.log(array2)
+    console.log(array)
+  
     
-    const data = {
-       
-        seat_id: id,
-        seat_row:row,
-        seat_number:number
-    };
-    axios
-    .post('http://localhost:8000/user/test22', data)
-    .then(res => {
-      
-      
-    })
-    .catch(err => {
-      
-    })
   }
   
- async  componentDidMount() {
+  componentDidMount() {
    
-  this.setState({})
 
- await    axios
-  .get('http://localhost:8000/user/seats4')
+
+    axios
+  .get('http://localhost:8000/user/return_seats/'+this.props.match.params.user_id+'/'+this.props.match.params.id+'/'+this.props.match.params.id2)
   .then(res => {
      
       const rows = res.data
@@ -67,7 +62,7 @@ export default class Return_Seats extends Component {
   })
 
 
-   await  axios
+    axios
     .get('http://localhost:8000/user/seats')
     .then(res => {
        
@@ -96,6 +91,7 @@ export default class Return_Seats extends Component {
 
  
   removeSeatCallback = ({ row, number, id }, removeCb) => {
+    this.setState({counter:this.state.counter - 1})
     this.setState({
       loading: true
     }, async () => {
@@ -106,12 +102,21 @@ export default class Return_Seats extends Component {
       removeCb(row, number)
       this.setState({ loading: false })
     })
-    const data = {
-       
-        seat_id: id,
-    };
+    array.pop(id)
+   array2.pop(row+""+number)
+
+  }
+
+
+  onSubmit = e => {
+    e.preventDefault();
+   
+ if(this.state.counter <5){
+ alert(' Chosen seats less than number of specified passengers ! ')
+ }
+   else {
     axios
-    .post('http://localhost:8000/user/test33', data)
+    .post('http://localhost:8000/user/return_save_seats_id', array2)
     .then(res => {
       
       
@@ -119,14 +124,27 @@ export default class Return_Seats extends Component {
     .catch(err => {
       
     })
-  }
+    axios
+    .post('http://localhost:8000/user/return_save_seats', array)
+    .then(res => {
+      
+      
+    })
+    .catch(err => {
+      
+    })
+    this.props.history.push('/summary/'+this.props.match.params.user_id+"/"+this.props.match.params.id+"/"+this.props.match.params.id2)
+   }
+   
+  };
+
  
   render() {
   
    
 const {loading} = this.state
  
-console.log(this.state.flag)
+
 
 
 
@@ -138,8 +156,8 @@ console.log(this.state.flag)
             addSeatCallback={this.addSeatCallback}
             removeSeatCallback={this.removeSeatCallback}
             
-            maxReservableSeats = {this.state.persons}
-            minReservableSeats = {this.state.persons}
+            maxReservableSeats = {5}
+            minReservableSeats = {5}
             alpha
             visible
             selectedByDefault
@@ -148,11 +166,8 @@ console.log(this.state.flag)
            // tooltipProps={{multiline: true}}
           />}
          <br />
-         <Link to={`/Thankyou/${this.props.match.params.user_id}`}>
-     <button type="button">
-         Proceed 
-     </button>
- </Link>
+     
+ <button type="submit" onClick = {this.onSubmit} className="btn btn-outline-info btn-lg btn-block">proceed</button>
 
         </div>
        
