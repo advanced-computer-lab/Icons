@@ -116,7 +116,7 @@ console.log(array2)
  }
    else {
     axios
-    .post('http://localhost:8000/user/return_save_seats_id', array2)
+    .post('http://localhost:8000/user/return_save_seats_id', array)
     .then(res => {
       
       
@@ -125,7 +125,7 @@ console.log(array2)
       
     })
     axios
-    .post('http://localhost:8000/user/return_save_seats', array)
+    .post('http://localhost:8000/user/return_save_seats', array2)
     .then(res => {
       
       

@@ -96,7 +96,7 @@ export default class Departure_Seats extends Component {
  }
    else {
     axios
-    .post('http://localhost:8000/user/save_seats_id', array2)
+    .post('http://localhost:8000/user/save_seats_id', array)
     .then(res => {
       
       
@@ -105,7 +105,7 @@ export default class Departure_Seats extends Component {
       
     })
     axios
-    .post('http://localhost:8000/user/save_seats', array)
+    .post('http://localhost:8000/user/save_seats', array2)
     .then(res => {
       
       

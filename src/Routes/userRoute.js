@@ -25,5 +25,6 @@ router.get('/final_summary/:user_id/:id/:id2', userController.user_final_summary
 router.get('/save_reservation/:user_id/:id/:id2', userController.user_save_reservation );
 router.get('/adjust_seats/:user_id/:id/:id2', userController.adjust_seats);  
 router.get('/adjust_seats_db/:user_id/:id/:id2', userController.adjust_seats_db); 
+router.get('/test', userController.edit_dep_seats);
 
 module.exports = router;

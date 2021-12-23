@@ -535,8 +535,8 @@ const user_final_summary = async (req,res)=>{ // final iternatiy
     })
    
   
-    const xxx = [{Departure_Flight_number:req.params.id , Cabin:cabin , Departure_Flight_Departure_time:x[0].Departure_time,Departure_Flight_Arrival_time:x[0].Arrival_time,Departure_Flight_Departure_date:x[0].Departure_date,Departure_Flight_Arrival_date:x[0].Arrival_date,Departure_Flight_Departure_airport:x[0].Departure_airport,Departure_Flight_Arrival_airport:x[0].Arrival_airport ,total_price:pricy , dep_seats:dep_chosen_id,
-    Return_Flight_Arrival_time:y[0].Arrival_time,Return_Flight_number:req.params.id2 , Cabin:cabin , Return_Flight_Departure_time:y[0].Departure_time,Return_Flight_Departure_date:y[0].Departure_date, Return_Flight_Arrival_date:y[0].Arrival_date,Return_Flight_Departure_airport:y[0].Departure_airport,Return_Flight_Arrival_airport:y[0].Arrival_airport  , total_price:pricy,return_seats:return_chosen_id,booking_number:booking_number}]
+    const xxx = [{Departure_Flight_number:req.params.id , Cabin:cabin , Departure_Flight_Departure_time:x[0].Departure_time,Departure_Flight_Arrival_time:x[0].Arrival_time,Departure_Flight_Departure_date:x[0].Departure_date,Departure_Flight_Arrival_date:x[0].Arrival_date,Departure_Flight_Departure_airport:x[0].Departure_airport,Departure_Flight_Arrival_airport:x[0].Arrival_airport ,total_price:pricy , dep_seats:dep_chosen,
+    Return_Flight_Arrival_time:y[0].Arrival_time,Return_Flight_number:req.params.id2 , Cabin:cabin , Return_Flight_Departure_time:y[0].Departure_time,Return_Flight_Departure_date:y[0].Departure_date, Return_Flight_Arrival_date:y[0].Arrival_date,Return_Flight_Departure_airport:y[0].Departure_airport,Return_Flight_Arrival_airport:y[0].Arrival_airport  , total_price:pricy,return_seats:return_chosen,booking_number:booking_number}]
        res.send(xxx)  ;
 
   }
@@ -647,68 +647,200 @@ const adjust_seats = async (req,res) => {
 //___________________________________________________________________________________________________________________________________________________________//
 
 const adjust_seats_db = async(req,res)=>{ //in db flights we will set all resrved seats to true (flag is reserved) and we will do another methpd if user tries to edit their selected seats by setting them to isselectd = true  //
-  // try {
-  //   if(cabin == "Economy"){
-  //     const seats = await Flights.find({Flight_number:req.params.id}).then(result =>{
-  //       for(var i =0 ; i<result[0].Seats_Economy.length;i++){
-  //         for(var j =0 ; j<result[0].Seats_Economy[i].length;j++){
-            
-  //           if(dep_chosen_id.includes(result[0].Seats_Economy[i][j].id)==true){
-  //             result[0].Seats_Economy[i][j].isReserved = true 
-  //           }
-  //         }
-  //       }
-        
-  //     })
-  //     const seats2 = await Flights.find({Flight_number:req.params.id2}).then(result =>{
-  //       for(var i =0 ; i<result[0].Seats_Economy.length;i++){
-  //         for(var j =0 ; j<result[0].Seats_Economy[i].length;j++){
-            
-  //           if(dep_chosen_id.includes(result[0].Seats_Economy[i][j].id)==true){
-  //             result[0].Seats_Economy[i][j].isReserved= true 
-  //           }
-  //         }
-  //       }
-        
-  //     })
-   
-  //      }
-  //      else {
-  //       const seats = await Flights.find({Flight_number:req.params.id}).then(result =>{
-          
-  //         for(var i =0 ; i<result[0].Seats_Bussiness.length;i++){
-  //           for(var j =0 ; j<result[0].Seats_Bussiness[i].length;j++){
-              
-  //             if(dep_chosen_id.includes(result[0].Seats_Bussiness[i][j].id)==true){
-  //               result[0].Seats_Bussiness[i][j].isReserved = true 
-  //             }
-  //           }
-  //         }
-  //       })
-  //       const seats2 = await Flights.find({Flight_number:req.params.id2}).then(result =>{
-  
-  //         for(var i =0 ; i<result[0].Seats_Bussiness.length;i++){
-  //           for(var j =0 ; j<result[0].Seats_Bussiness[i].length;j++){
-              
-  //             if(dep_chosen_id.includes(result[0].Seats_Bussiness[i][j].id)==true){
-  //               result[0].Seats_Bussiness[i][j].isReserved= true 
-  //             }
-  //           }
-  //         }
-  //       })
- 
-  //      }
-
-  // }
-  // catch (err){
-
-  // }
   try {
+    console.log("helllllo ist adjust seast db")
+    var temp1 = 0;
+    var temp2 =0;
+    if(cabin =="Economy"){
+      console.log("economy")
+    const no =  await Flights.find({Flight_number:req.params.id}).then(result =>{
+       temp1 = result[0].Number_of_Economy_Seats;
+
+    })
+    const no2 =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
+      temp2 = result[0].Number_of_Economy_Seats;
+
+   })
+   console.log(temp1 + " " + temp2)
+   console.log(dep_chosen_id)
+
+   const rows = []
+   const rows2 = []
+   var x = [] 
+   var x2 = []
+   var l =0;
+   var n=0;
+   var ll =0;
+   var nn=0;
+  var j = 1;
+  var jj=1;
+ 
+   for(var i = 1 ; i <= temp1 ;i++){
+     n++;
+     if(l==2){
+       i--;
+       x.push(null)
+       l=0;
+       continue ;
+     }
+ if(dep_chosen_id.includes(i)==true){
+  x.push({id:i,number:j,isSelected:false,isReserved:true})
+ }
+ else {
+  x.push({id:i,number:j,isSelected:false,isReserved:false})
+ }
+ 
+    j++;
+    l++;
+    if(n==8){
+     j=1;
+     rows.push(x);
+     x = [] 
+     n=0;
+     l=0;
+    }
+   }
+   if(x.length >0){
+     rows.push(x);
+    }
+     for(var i = 1 ; i <= temp2 ;i++){
+     nn++;
+     if(ll==2){
+       i--;
+       x2.push(null)
+       ll=0;
+       continue ;
+     }
+     
+     if(return_chosen_id.includes(i)==true ){
+       console.log("we found a chosen seat")
+      x2.push({id:i,number:jj,isSelected:false,isReserved:true})
+     }
+     else {
+      x2.push({id:i,number:jj,isSelected:false,isReserved:false})
+     }
+ 
+      
+     
+ 
+    jj++;
+    ll++;
+    if(nn==8){
+     jj=1;
+     rows2.push(x2);
+     x2 = [] 
+     nn=0;
+     ll=0;
+    }
+   }
+   if(x2.length >0){
+     rows2.push(x2);
+    }
+  const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id},{Seats_Economy:rows}).then(result =>{
+     
+    })
+  const z2 =  await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:rows2}).then(result =>{
+     
+    })
+    res.send(true)
+  }
+  else {
+
+    const no =  await Flights.find({Flight_number:req.params.id}).then(result =>{
+      temp1 = result[0].Number_of_Business_Class_Seats;
+
+   })
+   const no2 =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
+     temp2 = result[0].Number_of_Business_Class_Seats;
+
+  })
+  const rows = []
+  const rows2 = []
+  var x = [] 
+  var x2 = []
+  var l =0;
+  var n=0;
+  var ll =0;
+  var nn=0;
+ var j = 1;
+ var jj=1;
+
+  for(var i = 1 ; i <= temp1 ;i++){
+    n++;
+    if(l==2){
+      i--;
+      x.push(null)
+      l=0;
+      continue ;
+    }
+if(dep_chosen_id.includes(i)==true ){
+ x.push({id:i,number:j,isSelected:false,isReserved:true})
+}
+else {
+ x.push({id:i,number:j,isSelected:false,isReserved:false})
+}
+
+   j++;
+   l++;
+   if(n==8){
+    j=1;
+    rows.push(x);
+    x = [] 
+    n=0;
+    l=0;
+   }
+  }
+  if(x.length >0){
+    rows.push(x);
+   }
+    for(var i = 1 ; i <= temp2 ;i++){
+    nn++;
+    if(ll==2){
+      i--;
+      x2.push(null)
+      ll=0;
+      continue ;
+    }
+    if(return_chosen_id.includes(i)==true ){
+     x2.push({id:i,number:jj,isSelected:false,isReserved:true})
+    }
+    else {
+     x2.push({id:i,number:jj,isSelected:false,isReserved:false})
+    }
+
+     
+    
+
+   jj++;
+   ll++;
+   if(nn==8){
+    jj=1;
+    rows2.push(x2);
+    x2 = [] 
+    nn=0;
+    ll=0;
+   }
+  }
+  if(x2.length >0){
+    rows2.push(x2);
+   }
+ const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id},{Seats_Bussiness:rows}).then(result =>{
+    
+   })
+ const z2 =  await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:rows2}).then(result =>{
+    
+   })
+   res.send(true)
+    
 
   }
-  catch(err){
     
+
   }
+  catch (err){
+
+  }
+
 }
 
 
@@ -745,7 +877,23 @@ const user_Reservations_info = async  (req,res) =>{
 
 const edit_dep_seats = async (req ,res) =>{
 
-
+  // Flights.find({Flight_number:"A3",Seats_Economy:{$elemMatch:{$elemMatch:{id:200}}}}).then(result =>{
+   
+  //  console.log(result)
+  //   res.send(result)
+  // })
+  // const rows = [
+  //   [{ number: 1, isSelected: true }, {number: 2}, null, {number: '3', isReserved: true, orientation: 'east'}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6}],
+  //   [{ number: 1, isReserved: true }, {number: 2, isReserved: true}, null, {number: '3', isReserved: true, orientation: 'east'}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6}],
+  //   [{ number: 1 }, {number: 2}, null, {number: 3, isReserved: true, orientation: 'east'}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6}],
+  //   [{ number: 1 }, {number: 2}, null, {number: 3, orientation: 'east'}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6}],
+  //   [{ number: 1, isReserved: true }, {number: 2, orientation: 'east'}, null, {number: '3', isReserved: true}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6, isReserved: true}]
+  // ]
+  // console.log(rows[0][0]=({ number: 1, isSelected: false }))
+  // console.log(rows)
+  // Flights.findOneAndUpdate({Flight_number:"A3"},{Seats_Economy:rows}).then(result =>{
+  //   res.send(result)
+  // })
 
 
 }
@@ -778,7 +926,8 @@ module.exports = {
        adjust_seats  ,
        user_Reservations ,
        user_Reservations_info ,
-       adjust_seats_db
+       adjust_seats_db ,
+       edit_dep_seats
 
 
       }
