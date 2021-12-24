@@ -111,7 +111,7 @@ console.log(array2)
   onSubmit = e => {
     e.preventDefault();
    
- if(this.state.counter <5){
+ if(this.state.counter < this.state.persons){
  alert(' Chosen seats less than number of specified passengers ! ')
  }
    else {
@@ -156,8 +156,8 @@ const {loading} = this.state
             addSeatCallback={this.addSeatCallback}
             removeSeatCallback={this.removeSeatCallback}
             
-            maxReservableSeats = {5}
-            minReservableSeats = {5}
+            maxReservableSeats = {this.state.persons}
+            minReservableSeats = {this.state.persons}
             alpha
             visible
             selectedByDefault

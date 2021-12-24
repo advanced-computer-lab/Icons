@@ -29,6 +29,11 @@ var dep_chosen_id = []
 var dep_chosen = []
 var return_chosen = []
 var return_chosen_id = []
+var new_dep_seats = []
+var new_dep_seats_id = []
+
+var new_return_seats = []
+var new_return_seats_id = []
 var megan;
 var mail_user ;
 var temp100;
@@ -36,6 +41,7 @@ var no_of_availlable_seats;
 var no_of_availlable_seats2;
 var  booking_number;
 var pricy = 0;
+var cabina ;
 booking_number =   Math.floor(100000 + Math.random() * 900000);
 booking_number = booking_number + ""
 
@@ -655,6 +661,9 @@ const adjust_seats_db = async(req,res)=>{ //in db flights we will set all resrve
 
  for(var i=0; i<temp3.length;i++){
   for(var j =0 ; j < temp3[i].length;j++){
+    if(temp3[i][j]==null){
+      continue ;
+    }
  if(dep_chosen_id.includes(temp3[i][j].id)){
    temp3[i][j].isReserved = true ;
 }
@@ -666,6 +675,9 @@ const adjust_seats_db = async(req,res)=>{ //in db flights we will set all resrve
 
 for(var i=0; i<temp4.length;i++){
   for(var j =0 ; j < temp4[i].length;j++){
+    if(temp4[i][j]==null){
+      continue ;
+    }
  if(return_chosen_id.includes(temp4[i][j].id)){
    temp4[i][j].isReserved = true ;
 }
@@ -705,6 +717,9 @@ const no2 =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
 
 for(var i=0; i<temp3.length;i++){
 for(var j =0 ; j < temp3[i].length;j++){
+  if(temp3[i][j]==null){
+    continue ;
+  }
 if(dep_chosen_id.includes(temp3[i][j].id)){
 temp3[i][j].isReserved = true;
 }
@@ -716,6 +731,9 @@ temp3[i][j].isReserved = true;
 
 for(var i=0; i<temp4.length;i++){
 for(var j =0 ; j < temp4[i].length;j++){
+  if(temp4[i][j]==null){
+    continue ;
+  }
 if(return_chosen_id.includes(temp4[i][j].id)){
 temp4[i][j].isReserved = true;
 }
@@ -786,13 +804,66 @@ const user_Reservations_info = async  (req,res) =>{
 
 const edit_dep_seats_same_flight = async (req ,res) =>{
 try {
+  var user_eco = []
+  var user_buss = []
+  var x = []
+  var y = []
+  
   const z = await Reservations.find({_id:req.params.id}).then(result =>{
-    
+    user_eco = result[0].Departure_seats_id
+    user_buss = result[0].Departure_seats_id
+    cabina = result[0].Cabin
   })
   const no =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
-       
+       x = result[0].Seats_Economy
+       y = result[0].Seats_Bussiness
     
 })
+
+if(cabina == "Economy"){
+for(var i=0; i< x.length;i++){
+  for(var j = 0; j< x[i].length;j++){
+    if(x[i][j]==null){
+      continue ;
+    }
+    if(user_eco.includes(x[i][j].id)==true){
+      x[i][j].isSelected = true ;
+      x[i][j].isReserved= false ;
+    }
+  }
+}
+const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:x}).then(result =>{
+    // res.send(result[0].Seats_Economy)
+})
+const z2 = await  Flights.find({Flight_number:req.params.id2}).then(result =>{
+  res.send(result[0].Seats_Economy)
+})
+
+
+}// end of if 
+else {
+
+
+  for(var i=0; i< y.length;i++){
+    for(var j = 0; j< x[i].length;j++){
+      if(y[i][j]==null){
+        continue ;
+      }
+      if(user_buss.includes(y[i][j].id)==true){
+        y[i][j].isSelected = true ;
+        y[i][j].isReserved= false ;
+      }
+    }
+  }
+
+  const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:y}).then(result =>{
+    res.send(result[0].Seats_Bussiness)
+  })
+
+
+}// end of else 
+
+
 
 }
   catch(err){
@@ -800,7 +871,272 @@ try {
   }
 
 
+} 
+
+// ________________________________________________________________________________________________________________________________________________//
+
+const get_number_of_passengers = async (req,res)=>{
+  var s ;
+  try {
+const z = Reservations.find({_id:req.params.id}).then(result =>{
+  s = result[0].Departure_seats_id.length
+  res.send(s+'')
+})
+  }
+  catch(err){
+    console.log(err)
+  }
 }
+
+// __________________________________________________________________________________________________________________________________________________//
+
+const get_old_dep_seats_id = async (req,res)=>{
+  try {
+    const z = Reservations.find({_id:req.params.id}).then(result =>{
+      res.send(result[0].Departure_seats_id)
+    })
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
+// _________________________________________________________________________________________________________________________________________________//
+
+const get_old_dep_seats = async (req,res)=>{
+  try {
+    const z = Reservations.find({_id:req.params.id}).then(result =>{
+      res.send(result[0].Departure_seats)
+    })
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+// _____________________________________________________________________________________________________________________________________________//
+
+const get_new_seats_dep = async(req,res) => {
+  var x = []
+  var y = []
+ try {
+  x = req.body 
+const z = await Reservations.findOneAndUpdate({_id:req.params.id},{Departure_seats_id:x }).then(result =>{
+
+})
+
+
+const z1 = await Flights.find({Flight_number:req.params.id2}).then(result =>{
+  if(cabina =="Economy"){
+    y = result[0].Seats_Economy
+  }
+  else {
+    y = result[0].Seats_Bussiness
+  }
+})
+
+for(var i=0; i<y.length;i++){
+  for(var j=0; j<y[i].length;j++){
+     if(y[i][j]==null){
+       continue ;
+     }
+     y[i][j].isSelected = false;
+     if(x.includes(y[i][j].id)==true){
+          y[i][j].isReserved = true ;
+     }
+  }
+}
+
+
+if(cabina == "Economy"){
+const z2 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:y}).then(result => {
+  res.send(true)
+})
+ 
+}
+else {
+  const z2 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:y}).then(result => {
+    res.send(true)
+  })
+}
+ }
+ catch(err){
+
+ }
+}
+const get_new_seats_dep_id = async(req,res) => {
+  
+ try {
+  const z = await Reservations.findOneAndUpdate({_id:req.params.id},{Departure_seats:req.body }).then(result =>{
+  res.send(true)
+  })
+  
+ }
+ catch(err){
+
+ }
+}
+
+const adjust_res_with_new_dep_seats = async(req,res)=>{
+  var x = []
+  var y = []
+try {
+  x = req.body
+  const z1 = await Flights.find({Flight_number:req.params.id2}).then(result =>{
+    if(cabina =="Economy"){
+      y = result[0].Seats_Economy
+    }
+    else {
+      y = result[0].Seats_Bussiness
+    }
+  })
+for(var i=0; i < y.length ; i++){
+  for(var j=0; j<y[i].length;j++){
+    if(y[i][j]==null){
+      continue ;
+    }
+    if(x.includes(y[i][j].id)==true){
+           y[i][j].isReserved = false;
+    }
+  }
+}
+
+if(cabina == "Economy"){
+const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:y}).then(result =>{
+res.send(true)
+})
+}
+else {
+  const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:y}).then(result =>{
+    res.send(true)
+    })
+}
+
+
+}
+catch(err){
+
+}
+}
+// _________________________________________________________________________________________________________________________________________________//
+const get_new_seats_return = async(req,res) => {
+  var x = []
+  var y = []
+ try {
+  x = req.body 
+const z = await Reservations.findOneAndUpdate({_id:req.params.id},{Return_seats_id:x }).then(result =>{
+
+})
+
+
+const z1 = await Flights.find({Flight_number:req.params.id2}).then(result =>{
+  if(cabina =="Economy"){
+    y = result[0].Seats_Economy
+  }
+  else {
+    y = result[0].Seats_Bussiness
+  }
+})
+
+for(var i=0; i<y.length;i++){
+  for(var j=0; j<y[i].length;j++){
+     if(y[i][j]==null){
+       continue ;
+     }
+     y[i][j].isSelected = false;
+     if(x.includes(y[i][j].id)==true){
+          y[i][j].isReserved = true ;
+     }
+  }
+}
+
+
+if(cabina == "Economy"){
+const z2 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:y}).then(result => {
+  res.send(true)
+})
+ 
+}
+else {
+  const z2 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:y}).then(result => {
+    res.send(true)
+  })
+}
+ }
+ catch(err){
+
+ }
+}
+const get_new_seats_return_id = async(req,res) => {
+  
+ try {
+  const z = await Reservations.findOneAndUpdate({_id:req.params.id},{Return_seats:req.body }).then(result =>{
+  res.send(true)
+  })
+  
+ }
+ catch(err){
+
+ }
+}
+
+const adjust_res_with_new_return_seats = async(req,res)=>{
+  var x = []
+  var y = []
+try {
+  x = req.body
+  const z1 = await Flights.find({Flight_number:req.params.id2}).then(result =>{
+    if(cabina =="Economy"){
+      y = result[0].Seats_Economy
+    }
+    else {
+      y = result[0].Seats_Bussiness
+    }
+  })
+for(var i=0; i < y.length ; i++){
+  for(var j=0; j<y[i].length;j++){
+    if(y[i][j]==null){
+      continue ;
+    }
+    if(x.includes(y[i][j].id)==true){
+           y[i][j].isReserved = false;
+    }
+  }
+}
+
+if(cabina == "Economy"){
+const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:y}).then(result =>{
+res.send(true)
+})
+}
+else {
+  const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:y}).then(result =>{
+    res.send(true)
+    })
+}
+
+
+}
+catch(err){
+
+}
+}
+
+
+
+
+// _____________________________________________________________________________________________________________________________________________//
+
+
+
+
+
+
+
+
+
+
+
+
 //_____________________________________________________________________________________________________________________________________________//
 const user_delete_res = async (req,res)=>{
   try {
@@ -846,6 +1182,9 @@ const delete_seats_from_db_user_deleted_reservation = async (req,res)=>{
 
 for(var i=0; i<temp3.length;i++){
   for(var j =0 ; j < temp3[i].length;j++){
+    if(temp3[i][j]==null){
+      continue ;
+    }
  if(chosen_dep.includes(temp3[i][j].id)){
    temp3[i][j].isReserved = false;
 }
@@ -857,6 +1196,9 @@ for(var i=0; i<temp3.length;i++){
 
 for(var i=0; i<temp4.length;i++){
   for(var j =0 ; j < temp4[i].length;j++){
+    if(temp4[i][j]==null){
+      continue ;
+    }
  if(chosen_return.includes(temp4[i][j].id)){
    temp4[i][j].isReserved = false;
 }
@@ -893,6 +1235,9 @@ res.send(true)
 
 for(var i=0; i<temp3.length;i++){
  for(var j =0 ; j < temp3[i].length;j++){
+  if(temp3[i][j]==null){
+    continue ;
+  }
 if(chosen_dep.includes(temp3[i][j].id)){
   temp3[i][j].isReserved = false;
 }
@@ -904,6 +1249,9 @@ if(chosen_dep.includes(temp3[i][j].id)){
 
 for(var i=0; i<temp4.length;i++){
  for(var j =0 ; j < temp4[i].length;j++){
+  if(temp4[i][j]==null){
+    continue ;
+  }
 if(chosen_return.includes(temp4[i][j].id)){
   temp4[i][j].isReserved = false;
 }
@@ -935,8 +1283,10 @@ res.send(true)
 //_________________________________________________________________________________________________________________________________________________//
 
 const user_find_flight_details = async(req,res)=>{
+  console.log(req.params.id)
   try {
       Flights.find({Flight_number:req.params.id}).then(result =>{
+        console.log(result)
         res.send(result)
       })
   }
@@ -1000,6 +1350,125 @@ const z = await Reservations.find({_id:req.params.id}).then(result =>{
 }
 
 
+// ________________________________________________________________//
+const user_test = async(req,res)=> {
+ 
+}
+// ___________________________________________________________________________________________//
+const edit_return_seats_same_flight = async (req ,res) =>{
+  try {
+    var user_eco = []
+    var user_buss = []
+    var x = []
+    var y = []
+    
+    const z = await Reservations.find({_id:req.params.id}).then(result =>{
+      user_eco = result[0].Return_seats_id
+      user_buss = result[0].Return_seats_id
+      cabina = result[0].Cabin
+    })
+    const no =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
+         x = result[0].Seats_Economy
+         y = result[0].Seats_Bussiness
+      
+  })
+  
+  if(cabina == "Economy"){
+  for(var i=0; i< x.length;i++){
+    for(var j = 0; j< x[i].length;j++){
+      if(x[i][j]==null){
+        continue ;
+      }
+      if(user_eco.includes(x[i][j].id)==true){
+        x[i][j].isSelected = true ;
+        x[i][j].isReserved= false ;
+      }
+    }
+  }
+  const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:x}).then(result =>{
+      // res.send(result[0].Seats_Economy)
+  })
+  const z2 = await  Flights.find({Flight_number:req.params.id2}).then(result =>{
+    res.send(result[0].Seats_Economy)
+  })
+  
+  
+  }// end of if 
+  else {
+  
+  
+    for(var i=0; i< y.length;i++){
+      for(var j = 0; j< x[i].length;j++){
+        if(y[i][j]==null){
+          continue ;
+        }
+        if(user_buss.includes(y[i][j].id)==true){
+          y[i][j].isSelected = true ;
+          y[i][j].isReserved= false ;
+        }
+      }
+    }
+  
+    const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:y}).then(result =>{
+      res.send(result[0].Seats_Bussiness)
+    })
+  
+  
+  }// end of else 
+  
+  
+  
+  }
+    catch(err){
+      console.log(err)
+    }
+  
+  
+  } 
+  
+  const get_old_return_seats_id = async (req,res)=>{
+    try {
+      const z = Reservations.find({_id:req.params.id}).then(result =>{
+        res.send(result[0].Return_seats_id)
+      })
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+  
+  // _________________________________________________________________________________________________________________________________________________//
+  
+  const get_old_return_seats = async (req,res)=>{
+    try {
+      const z = Reservations.find({_id:req.params.id}).then(result =>{
+        res.send(result[0].Return_seats)
+      })
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+// ___________________________________________________________________________________________________________________________________//
+
+//part of editing flight or choosing new one // Depature //
+
+
+
+const user_edit_dep_flight = async(req,res)=>{
+  try {
+
+  }
+
+  catch(err){
+    console.log(err)
+  }
+}
+
+
+
+
 
 
 
@@ -1028,14 +1497,32 @@ module.exports = {
        user_save_reservation ,
        update_user ,
        user_info ,
-       adjust_seats  ,
+       adjust_seats  , 
        user_Reservations ,
        user_Reservations_info ,
        adjust_seats_db ,
        user_delete_res ,
        user_find_flight_details ,
        delete_seats_from_db_user_deleted_reservation ,
-       user_email_summary 
+       user_email_summary ,
+       edit_dep_seats_same_flight ,
+       get_old_dep_seats ,
+       get_old_dep_seats_id ,
+       get_number_of_passengers ,
+       user_test  ,
+       //edit dep seats within same flight//
+       get_new_seats_dep,
+       get_new_seats_dep_id ,
+       adjust_res_with_new_dep_seats,
+       get_new_seats_return,
+       get_new_seats_return_id ,
+       adjust_res_with_new_return_seats ,
+
+       edit_return_seats_same_flight ,
+       get_old_return_seats_id ,
+       get_old_return_seats
+       
+
 
 
       }

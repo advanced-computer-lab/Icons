@@ -26,6 +26,11 @@ import Guest_Summary from './Usercomponents/Guest_Summary';
 import Sign_Up from './Admincomponents/Sign_Up';
 import User_Login from './Admincomponents/User_Login';
 import Change_Password from './Admincomponents/Change_Password';
+import Sel_Res_Dep from './Usercomponents/Sel_Res_Dep';
+import Edit_Deperature_seats from './Usercomponents/Edit_Deperature_seats';
+
+import Sel_Res_Return from './Usercomponents/Sel_Res_Return';
+import Edit_Return_seats from './Usercomponents/Edit_Return_seats';
 
 class App extends Component {
   render() {
@@ -57,6 +62,12 @@ class App extends Component {
           <Route path='/test' component={Sign_Up} />
           <Route path='/test2' component={User_Login} />
           <Route path='/change_passowrd/:id' component={Change_Password} />
+
+          <Route path='/res_dep_flight/:user_id/:id/:id2/:id3/:id4' component={Sel_Res_Dep} />
+          <Route path='/edit_dep_seats/:user_id/:id/:id2' component={Edit_Deperature_seats} />
+
+          <Route path='/res_return_flight/:user_id/:id/:id2/:id3/:id4' component={Sel_Res_Return} />
+          <Route path='/edit_return_seats/:user_id/:id/:id2' component={Edit_Return_seats} />
          
         </div>
       </Router>

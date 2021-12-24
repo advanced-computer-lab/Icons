@@ -27,8 +27,40 @@ router.get('/adjust_seats/:user_id/:id/:id2', userController.adjust_seats);
 router.get('/adjust_seats_db/:user_id/:id/:id2', userController.adjust_seats_db); 
 router.get('/current_reservations/:user_id/:id', userController.user_Reservations);  
 router.delete('/delete_reservation/:id', userController.user_delete_res);  
-router.get('/user_flight_info/:user_id/:id', userController.user_find_flight_details);  
+router.get('/user_flight_info/:user_id/:id/:id2', userController.user_find_flight_details);  
 router.get('/adjust_seats_db_again/:id', userController.delete_seats_from_db_user_deleted_reservation); 
 router.get('/email_me/:user_id/:id', userController.user_email_summary);    
 
+router.get('/adjust_edit_seats/:user_id/:id/:id2', userController.edit_dep_seats_same_flight);    
+router.get('/get_old_seats/:id', userController.get_old_dep_seats); 
+router.get('/get_old_seats_id/:id', userController.get_old_dep_seats_id); 
+router.get('/get_number_of_passengers/:id', userController.get_number_of_passengers); 
+
+router.post('/change_seats/:user_id/:id/:id2', userController.get_new_seats_dep);
+router.post('/change_seats1/:user_id/:id/:id2', userController.get_new_seats_dep_id);
+router.post('/change_seats2/:user_id/:id/:id2', userController.adjust_res_with_new_dep_seats);
+
+
+router.post('/change_seats3/:user_id/:id/:id2', userController.get_new_seats_return);
+router.post('/change_seats4/:user_id/:id/:id2', userController.get_new_seats_return_id);
+router.post('/change_seats5/:user_id/:id/:id2', userController.adjust_res_with_new_return_seats);
+
+
+
+router.get('/adjust_edit_seats2/:user_id/:id/:id2', userController.edit_return_seats_same_flight );    
+router.get('/get_old_seats2/:id', userController.get_old_return_seats); 
+router.get('/get_old_seats_id2/:id', userController.get_old_return_seats_id );
+
+
+
+
+
+
+
+
+
+
+
+
+router.get('/lokma',userController.user_test)
 module.exports = router;

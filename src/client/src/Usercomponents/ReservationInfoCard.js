@@ -33,7 +33,7 @@ const ReservationInfoCard = (props) => {
                 
               
                 <h2>
-                    <Link to={`/flight_info/${summary.User_id}/${props.res_id}/${summary.Departure_Flight_number}`}>
+                    <Link to={`/res_dep_flight/${summary.User_id}/${props.res_id}/${summary.Departure_Flight_number}/${summary.Cabin}/${summary.Departure_seats.length}`}>
                     <p> { summary.Departure_Flight_number } </p>
                     </Link>
                 </h2>
@@ -63,7 +63,7 @@ const ReservationInfoCard = (props) => {
                     
                    
                 <h2>
-                    <Link to={`/flight_info/${summary.User_id}/${summary.Return_Flight_number}`}>
+                <Link to={`/res_return_flight/${summary.User_id}/${props.res_id}/${summary.Return_Flight_number}/${summary.Cabin}/${summary.Departure_seats.length}`}>
                     <p> { summary.Return_Flight_number } </p>
                     </Link>
                 </h2>
