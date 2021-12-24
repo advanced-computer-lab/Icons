@@ -83,8 +83,11 @@ export default class Departure_Seats extends Component {
       removeCb(row, number)
       this.setState({ loading: false })
     })
-    array.pop(id)
-    array2.pop(row+""+number)
+    var cc = array.indexOf(id)
+   console.log(cc)
+   array.splice(cc, 1);
+   var cc2 = array2.indexOf(row+""+number)
+   array2.splice(cc2, 1);
   }
 
 

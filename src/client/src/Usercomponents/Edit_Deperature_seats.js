@@ -132,8 +132,7 @@ export default class Edit_Deperature_seats extends Component {
   alert(' Chosen seats less than number of specified passengers ! ')
  }
    else {
-       console.log(difference + "  diff")
-       console.log(array + "   arr")
+       
    axios
     .post('http://localhost:8000/user/change_seats/'+this.props.match.params.user_id+"/"+this.props.match.params.id+"/"+this.props.match.params.id2, array)
     .then(res => {
