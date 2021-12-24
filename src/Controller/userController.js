@@ -786,6 +786,13 @@ const user_Reservations_info = async  (req,res) =>{
 
 const edit_dep_seats_same_flight = async (req ,res) =>{
 try {
+  const z = await Reservations.find({_id:req.params.id}).then(result =>{
+    
+  })
+  const no =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
+       
+    
+})
 
 }
   catch(err){

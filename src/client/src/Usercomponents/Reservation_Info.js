@@ -66,7 +66,7 @@ class Reservation_Info extends Component {
           summaryList = "there is no Reservation record!";
         } else {
           summaryList = flights.map((summary) =>
-            <ReservationInfoCard summary={summary}  />
+            <ReservationInfoCard summary={summary} res_id = {this.props.match.params.id} />
         
           );
         }

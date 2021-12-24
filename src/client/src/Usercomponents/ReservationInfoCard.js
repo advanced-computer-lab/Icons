@@ -33,7 +33,7 @@ const ReservationInfoCard = (props) => {
                 
               
                 <h2>
-                    <Link to={`/flight_info/${summary.User_id}/${summary.Departure_Flight_number}`}>
+                    <Link to={`/flight_info/${summary.User_id}/${props.res_id}/${summary.Departure_Flight_number}`}>
                     <p> { summary.Departure_Flight_number } </p>
                     </Link>
                 </h2>
