@@ -6,16 +6,20 @@ const ReservationInfoCard = (props) => {
     const  summary  = props.summary;
     var str='' ;
     var str2='';
-for(var i =0 ;i<summary.Departure_seats.length;i++){
-    if(str !=''){
- str =  str + ", " + summary.Departure_seats[i]
- str2 =  str2 + ", " + summary.Return_seats[i]
-    }
- else {
-     str = summary.Departure_seats[i]
-     str2 = summary.Return_seats[i]
- }
- }
+    for(var i =0 ;i<summary.Departure_seats.length;i++){
+        if(i==0){
+            str = summary.Departure_seats[0]+" , "
+            str2 = summary.Return_seats[0]+" , "
+        }
+        else if(i== summary.Departure_seats.length -1 ){
+          str =str + summary.Departure_seats[i]
+          str2 =str2 + summary.Return_seats[i]
+        }
+        else {
+          str =str + summary.Departure_seats[i]+" , "
+          str2 =str2 + summary.Return_seats[i] +" , "
+        }
+       }
 
 
 
@@ -28,9 +32,13 @@ for(var i =0 ;i<summary.Departure_seats.length;i++){
                 </h3> 
                 
               
-                    <p> Flight Number : { summary.Departure_Flight_number } </p>
+                <h2>
+                    <Link to={`/flight_info/${summary.User_id}/${summary.Departure_Flight_number}`}>
+                    <p> { summary.Departure_Flight_number } </p>
+                    </Link>
+                </h2>
                   
-                   {/* <p>  Flight Number : {summary.Departure_Flight_number}</p> */}
+                 
                   
                    <p> Departure Time : { summary.Departure_Flight_Departure_time}</p>
                 
@@ -52,9 +60,16 @@ for(var i =0 ;i<summary.Departure_seats.length;i++){
                    Return Flight
                 </h3>
              
-                    <p>  Flight Number : { summary.Return_Flight_number } </p>
+                    
                    
-                
+                <h2>
+                    <Link to={`/flight_info/${summary.User_id}/${summary.Return_Flight_number}`}>
+                    <p> { summary.Return_Flight_number } </p>
+                    </Link>
+                </h2>
+
+
+                   
                   
                   <p> Departure Time : { summary.Return_Flight_Departure_time}</p>
                 

@@ -49,7 +49,7 @@ class App extends Component {
           <Route path='/summary/:user_id/:id/:id2' component={Summary} />
           <Route path='/Current_Reservations/:user_id' component={CurrentReservations} />
           <Route path='/Thankyou/:user_id/:id/:id2' component={Thankyou} />
-          <Route path='/Reservation_Info/:id/:user_id' component={Reservation_Info}/>
+          <Route path='/Reservation_Info/:user_id/:id' component={Reservation_Info}/>
           <Route path='/Update_Info/:id' component={UpdateUser} />
           <Route path='/Guest_Summary/:user_id/:id/:id2' component={Guest_Summary} />
 

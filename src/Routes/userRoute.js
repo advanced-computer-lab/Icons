@@ -6,8 +6,8 @@ router.post('/search', userController.user_flight_find);
 router.get('/search_Results', userController.user_search_result);
 router.get('/search_Return', userController.user_search_result_return);
 router.get('/seats', userController.user_seats);
-router.get('/reservation_info/:id',userController.user_Reservations_info)
-router.get('/send_mail/:id',userController.send_mail)
+router.get('/reservation_info/:user_id/:id',userController.user_Reservations_info)
+router.get('/send_mail/:user_id/:id',userController.send_mail)
 
 
 // ___________________________________________________________________//
@@ -25,6 +25,10 @@ router.get('/final_summary/:user_id/:id/:id2', userController.user_final_summary
 router.get('/save_reservation/:user_id/:id/:id2', userController.user_save_reservation );
 router.get('/adjust_seats/:user_id/:id/:id2', userController.adjust_seats);  
 router.get('/adjust_seats_db/:user_id/:id/:id2', userController.adjust_seats_db); 
-router.get('/test', userController.edit_dep_seats);
+router.get('/current_reservations/:user_id/:id', userController.user_Reservations);  
+router.delete('/delete_reservation/:id', userController.user_delete_res);  
+router.get('/user_flight_info/:user_id/:id', userController.user_find_flight_details);  
+router.get('/adjust_seats_db_again/:id', userController.delete_seats_from_db_user_deleted_reservation); 
+router.get('/email_me/:user_id/:id', userController.user_email_summary);    
 
 module.exports = router;

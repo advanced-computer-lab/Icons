@@ -48,15 +48,8 @@ class Thankyou extends Component {
 onSubmit = e => {
   e.preventDefault();
  
-  this.props.history.push('/');
-// if(this.props.match.params.id == "undefined"){
-// alert('you need to login')
+  this.props.history.push('/Current_Reservations/'+this.props.match.params.user_id);
 
-// this.props.history.push('/test2')
-// }
-// else {
-//   this.props.history.push('/Departure_seats/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2);
-// }
 };
 
 

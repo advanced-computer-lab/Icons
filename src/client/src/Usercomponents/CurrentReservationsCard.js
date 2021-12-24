@@ -6,15 +6,19 @@ const CurrentReservationsCard= (props) => {
     const  summary  = props.summary;
     var str='' ;
     var str2='';
-for(var i =0 ;i<summary.Return_seats.length;i++){
-    if(str !=''){
- str =  str + ", " + summary.Departure_seats[i]
- str2 =  str2 + ", " + summary.Return_seats[i]
-    }
- else {
-     str = summary.Departure_seats[i]
-     str2 = summary.Return_seats[i]
- }
+for(var i =0 ;i<summary.Departure_seats.length;i++){
+  if(i==0){
+      str = summary.Departure_seats[0]+" , "
+      str2 = summary.Return_seats[0]+" , "
+  }
+  else if(i== summary.Departure_seats.length -1 ){
+    str =str + summary.Departure_seats[i]
+    str2 =str2 + summary.Return_seats[i]
+  }
+  else {
+    str =str + summary.Departure_seats[i]+" , "
+    str2 =str2 + summary.Return_seats[i] +" , "
+  }
  }
 
 
@@ -27,12 +31,12 @@ for(var i =0 ;i<summary.Return_seats.length;i++){
                     Departure Flight
                 </h3> 
                 
-                <h2>
+                {/* <h2>
                     <Link to={`/Reservation_Info/${summary._id}/${summary.User_id}`}>
                     <p> { summary.Departure_Flight_number } </p>
                     </Link>
-                </h2>
-                   {/* <p>  Flight Number : {summary.Departure_Flight_number}</p> */}
+                </h2> */}
+                   <p>  Flight Number : {summary.Departure_Flight_number}</p>
                   
                    <p> Departure Time : { summary.Departure_Flight_Departure_time}</p>
                 
@@ -53,13 +57,13 @@ for(var i =0 ;i<summary.Return_seats.length;i++){
                     
                    Return Flight
                 </h3>
-                <h2>
+                {/* <h2>
                     <Link to={`/Reservation_info/${summary._id}/${summary.User_id}`}>
                     <p> { summary.Return_Flight_number } </p>
                     </Link>
-                </h2>
+                </h2> */}
                 
-                  
+                <p>  Flight Number : {summary.Return_Flight_number}</p>
                   <p> Departure Time : { summary.Return_Flight_Departure_time}</p>
                 
                   <p> Arrival time :  {summary.Return_Flight_Arrival_time}</p>
@@ -78,6 +82,9 @@ for(var i =0 ;i<summary.Return_seats.length;i++){
                   
                   <p> Booking Number : {summary.booking_number}</p> 
                   <p>  Chosen Return  Seats : {str2}   </p>
+                  <button onClick={()=> props.handledelete(summary._id)}>
+                choose
+            </button>
             
             </div>
         </div>

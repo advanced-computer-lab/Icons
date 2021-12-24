@@ -177,16 +177,7 @@ console.log(temp7);
   
 
 
-      // const user_Reservations_info= (req,res) =>{ 
-    
-      //   Reservations.find({_id
-      //     :req.params.id}).then(result =>{
-      //     res.send(result)
-      //     res.status(200)
-      //   }).catch(err =>{
-      //      console.log(err);
-      //   });
-      //   }
+      
 
 
 
@@ -199,10 +190,10 @@ console.log(temp7);
          async (req, res) => {
           const money = await Reservations.find({_id:req.params.id}).then(result => {
             console.log(result)
-            console.log(result[0]._id)
+           
               temp100 = result[0].total_price
           })
-          const MAILING = await Users.find({_id:carla}).then(result => {
+          const MAILING = await Users.find({_id:req.params.user_id}).then(result => {
            
               mail_user = result[0].Email
           })
@@ -224,7 +215,7 @@ console.log(temp7);
         
           const msg = {
               from: 'projectacl@hotmail.com', // sender address
-              to: mail_user, // list of receivers
+              to: "ahmedlokma22@gmail.com", // list of receivers
             //  to:mail_user
               subject: "Cancelation", // Subject line
               text: "Unfourtanley  you canceled your reservation and these amount will be refunded back to you" + ""+ temp100 // plain text body
@@ -636,6 +627,7 @@ const adjust_seats = async (req,res) => {
     else {
       const seating = await Flights.findOneAndUpdate({Flight_number:req.params.id},{$inc : {Availlable_Number_of_Business_Class_Seats : -temp7}})
       const seating2 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{$inc : {Availlable_Number_of_Business_Class_Seats : -temp7}})
+   
     }
     res.send(true)
   }
@@ -647,199 +639,116 @@ const adjust_seats = async (req,res) => {
 //___________________________________________________________________________________________________________________________________________________________//
 
 const adjust_seats_db = async(req,res)=>{ //in db flights we will set all resrved seats to true (flag is reserved) and we will do another methpd if user tries to edit their selected seats by setting them to isselectd = true  //
-  try {
-    console.log("helllllo ist adjust seast db")
-    var temp1 = 0;
-    var temp2 =0;
-    if(cabin =="Economy"){
-      console.log("economy")
+  
+  try{
+    var temp3 = []
+    var temp4 = []
+  if(cabin == "Economy"){
     const no =  await Flights.find({Flight_number:req.params.id}).then(result =>{
-       temp1 = result[0].Number_of_Economy_Seats;
-
-    })
-    const no2 =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
-      temp2 = result[0].Number_of_Economy_Seats;
-
-   })
-   console.log(temp1 + " " + temp2)
-   console.log(dep_chosen_id)
-
-   const rows = []
-   const rows2 = []
-   var x = [] 
-   var x2 = []
-   var l =0;
-   var n=0;
-   var ll =0;
-   var nn=0;
-  var j = 1;
-  var jj=1;
- 
-   for(var i = 1 ; i <= temp1 ;i++){
-     n++;
-     if(l==2){
-       i--;
-       x.push(null)
-       l=0;
-       continue ;
-     }
- if(dep_chosen_id.includes(i)==true){
-  x.push({id:i,number:j,isSelected:false,isReserved:true})
- }
- else {
-  x.push({id:i,number:j,isSelected:false,isReserved:false})
- }
- 
-    j++;
-    l++;
-    if(n==8){
-     j=1;
-     rows.push(x);
-     x = [] 
-     n=0;
-     l=0;
-    }
-   }
-   if(x.length >0){
-     rows.push(x);
-    }
-     for(var i = 1 ; i <= temp2 ;i++){
-     nn++;
-     if(ll==2){
-       i--;
-       x2.push(null)
-       ll=0;
-       continue ;
-     }
-     
-     if(return_chosen_id.includes(i)==true ){
-       console.log("we found a chosen seat")
-      x2.push({id:i,number:jj,isSelected:false,isReserved:true})
-     }
-     else {
-      x2.push({id:i,number:jj,isSelected:false,isReserved:false})
-     }
- 
-      
-     
- 
-    jj++;
-    ll++;
-    if(nn==8){
-     jj=1;
-     rows2.push(x2);
-     x2 = [] 
-     nn=0;
-     ll=0;
-    }
-   }
-   if(x2.length >0){
-     rows2.push(x2);
-    }
-  const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id},{Seats_Economy:rows}).then(result =>{
-     
-    })
-  const z2 =  await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:rows2}).then(result =>{
-     
-    })
-    res.send(true)
-  }
-  else {
-
-    const no =  await Flights.find({Flight_number:req.params.id}).then(result =>{
-      temp1 = result[0].Number_of_Business_Class_Seats;
-
-   })
-   const no2 =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
-     temp2 = result[0].Number_of_Business_Class_Seats;
-
+       
+      temp3 = result[0].Seats_Economy
   })
-  const rows = []
-  const rows2 = []
-  var x = [] 
-  var x2 = []
-  var l =0;
-  var n=0;
-  var ll =0;
-  var nn=0;
- var j = 1;
- var jj=1;
+  const no2 =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
+    temp4 =  result[0].Seats_Economy
+ })
 
-  for(var i = 1 ; i <= temp1 ;i++){
-    n++;
-    if(l==2){
-      i--;
-      x.push(null)
-      l=0;
-      continue ;
-    }
-if(dep_chosen_id.includes(i)==true ){
- x.push({id:i,number:j,isSelected:false,isReserved:true})
+
+ for(var i=0; i<temp3.length;i++){
+  for(var j =0 ; j < temp3[i].length;j++){
+ if(dep_chosen_id.includes(temp3[i][j].id)){
+   temp3[i][j].isReserved = true ;
 }
+  }
+}
+
+
+
+
+for(var i=0; i<temp4.length;i++){
+  for(var j =0 ; j < temp4[i].length;j++){
+ if(return_chosen_id.includes(temp4[i][j].id)){
+   temp4[i][j].isReserved = true ;
+}
+  }
+}
+
+
+const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id},{Seats_Economy:temp3}).then(result =>{
+    
+})
+const z2 =  await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:temp4}).then(result =>{
+ 
+})
+
+
+
+res.send(true)
+
+
+
+  }// end of if 
+
+
 else {
- x.push({id:i,number:j,isSelected:false,isReserved:false})
+
+
+
+
+  const no =  await Flights.find({Flight_number:req.params.id}).then(result =>{
+       
+    temp3 = result[0].Seats_Bussiness
+})
+const no2 =  await Flights.find({Flight_number:req.params.id2}).then(result =>{
+  temp4 =  result[0].Seats_Bussiness
+})
+
+
+for(var i=0; i<temp3.length;i++){
+for(var j =0 ; j < temp3[i].length;j++){
+if(dep_chosen_id.includes(temp3[i][j].id)){
+temp3[i][j].isReserved = true;
+}
+}
 }
 
-   j++;
-   l++;
-   if(n==8){
-    j=1;
-    rows.push(x);
-    x = [] 
-    n=0;
-    l=0;
-   }
-  }
-  if(x.length >0){
-    rows.push(x);
-   }
-    for(var i = 1 ; i <= temp2 ;i++){
-    nn++;
-    if(ll==2){
-      i--;
-      x2.push(null)
-      ll=0;
-      continue ;
-    }
-    if(return_chosen_id.includes(i)==true ){
-     x2.push({id:i,number:jj,isSelected:false,isReserved:true})
-    }
-    else {
-     x2.push({id:i,number:jj,isSelected:false,isReserved:false})
-    }
 
-     
-    
 
-   jj++;
-   ll++;
-   if(nn==8){
-    jj=1;
-    rows2.push(x2);
-    x2 = [] 
-    nn=0;
-    ll=0;
-   }
-  }
-  if(x2.length >0){
-    rows2.push(x2);
-   }
- const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id},{Seats_Bussiness:rows}).then(result =>{
-    
-   })
- const z2 =  await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:rows2}).then(result =>{
-    
-   })
-   res.send(true)
-    
+
+for(var i=0; i<temp4.length;i++){
+for(var j =0 ; j < temp4[i].length;j++){
+if(return_chosen_id.includes(temp4[i][j].id)){
+temp4[i][j].isReserved = true;
+}
+}
+}
+
+
+const z = await  Flights.findOneAndUpdate({Flight_number:req.params.id},{Seats_Bussiness:temp3}).then(result =>{
+
+})
+const z2 =  await  Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:temp4}).then(result =>{
+
+})
+
+
+
+res.send(true)
+}
+
+
+
+
 
   }
-    
-
+  catch(err){
+    console.log(err)
   }
-  catch (err){
+  
+  
+  
+  
 
-  }
+
 
 }
 
@@ -875,28 +784,217 @@ const user_Reservations_info = async  (req,res) =>{
 
     // _____________________________________________________________________________________________________________________________________//
 
-const edit_dep_seats = async (req ,res) =>{
+const edit_dep_seats_same_flight = async (req ,res) =>{
+try {
 
-  // Flights.find({Flight_number:"A3",Seats_Economy:{$elemMatch:{$elemMatch:{id:200}}}}).then(result =>{
-   
-  //  console.log(result)
-  //   res.send(result)
-  // })
-  // const rows = [
-  //   [{ number: 1, isSelected: true }, {number: 2}, null, {number: '3', isReserved: true, orientation: 'east'}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6}],
-  //   [{ number: 1, isReserved: true }, {number: 2, isReserved: true}, null, {number: '3', isReserved: true, orientation: 'east'}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6}],
-  //   [{ number: 1 }, {number: 2}, null, {number: 3, isReserved: true, orientation: 'east'}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6}],
-  //   [{ number: 1 }, {number: 2}, null, {number: 3, orientation: 'east'}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6}],
-  //   [{ number: 1, isReserved: true }, {number: 2, orientation: 'east'}, null, {number: '3', isReserved: true}, {number: '4', orientation: 'west'}, null, {number: 5}, {number: 6, isReserved: true}]
-  // ]
-  // console.log(rows[0][0]=({ number: 1, isSelected: false }))
-  // console.log(rows)
-  // Flights.findOneAndUpdate({Flight_number:"A3"},{Seats_Economy:rows}).then(result =>{
-  //   res.send(result)
-  // })
+}
+  catch(err){
+    console.log(err)
+  }
 
 
 }
+//_____________________________________________________________________________________________________________________________________________//
+const user_delete_res = async (req,res)=>{
+  try {
+Reservations.findByIdAndDelete(req.params.id).then(result =>{
+  res.send("deleted sucessfully !!")
+})
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
+// ___________________________________________________________________________________________________________________________________________________//
+
+
+const delete_seats_from_db_user_deleted_reservation = async (req,res)=>{
+  try {
+    
+    var cabina;
+    var flight_dep_no;
+    var flight_return_no;
+    var chosen_dep = []
+    var chosen_return = []
+    var temp3 = []
+    var temp4 = []
+   const z = await Reservations.find({_id:req.params.id}).then(result =>{
+      flight_dep_no =   result[0].Departure_Flight_number ;
+      flight_return_no = result[0].Return_Flight_number ;
+      cabina = result[0].Cabin
+      chosen_dep   =  result[0].Departure_seats_id
+      chosen_return = result[0].Return_seats_id
+    })
+     if(cabina == "Economy"){
+
+      const no =  await Flights.find({Flight_number:flight_dep_no}).then(result =>{
+       
+         temp3 = result[0].Seats_Economy
+     })
+     const no2 =  await Flights.find({Flight_number:flight_return_no}).then(result =>{
+       temp4 =  result[0].Seats_Economy
+    })
+    
+
+for(var i=0; i<temp3.length;i++){
+  for(var j =0 ; j < temp3[i].length;j++){
+ if(chosen_dep.includes(temp3[i][j].id)){
+   temp3[i][j].isReserved = false;
+}
+  }
+}
+
+
+
+
+for(var i=0; i<temp4.length;i++){
+  for(var j =0 ; j < temp4[i].length;j++){
+ if(chosen_return.includes(temp4[i][j].id)){
+   temp4[i][j].isReserved = false;
+}
+  }
+}
+
+
+const z = await  Flights.findOneAndUpdate({Flight_number:flight_dep_no},{Seats_Economy:temp3}).then(result =>{
+    
+})
+const z2 =  await  Flights.findOneAndUpdate({Flight_number:flight_return_no},{Seats_Economy:temp4}).then(result =>{
+ 
+})
+const seating = await Flights.findOneAndUpdate({Flight_number:req.params.id},{$inc : {Availlable_Number_of_Economy_Seats :chosen_return.length }})
+const seating2 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{$inc : {Availlable_Number_of_Economy_Seats :chosen_return.length }})
+
+res.send(true)
+
+
+    }// end of if
+    else {
+
+
+
+
+      const no =  await Flights.find({Flight_number:flight_dep_no}).then(result =>{
+       
+        temp3 = result[0].Seats_Bussiness
+    })
+    const no2 =  await Flights.find({Flight_number:flight_return_no}).then(result =>{
+      temp4 =  result[0].Seats_Bussiness
+   })
+   
+
+for(var i=0; i<temp3.length;i++){
+ for(var j =0 ; j < temp3[i].length;j++){
+if(chosen_dep.includes(temp3[i][j].id)){
+  temp3[i][j].isReserved = false;
+}
+ }
+}
+
+
+
+
+for(var i=0; i<temp4.length;i++){
+ for(var j =0 ; j < temp4[i].length;j++){
+if(chosen_return.includes(temp4[i][j].id)){
+  temp4[i][j].isReserved = false;
+}
+ }
+}
+
+
+const z = await  Flights.findOneAndUpdate({Flight_number:flight_dep_no},{Seats_Bussiness:temp3}).then(result =>{
+    
+})
+const z2 =  await  Flights.findOneAndUpdate({Flight_number:flight_return_no},{Seats_Bussiness:temp4}).then(result =>{
+ 
+})
+const seating = await Flights.findOneAndUpdate({Flight_number:req.params.id},{$inc : {Availlable_Number_of_Business_Class_Seats :chosen_return.length }})
+const seating2 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{$inc : {Availlable_Number_of_Business_Class_Seats :chosen_return.length }})
+
+
+res.send(true)
+
+    }//end of else
+
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
+
+//_________________________________________________________________________________________________________________________________________________//
+
+const user_find_flight_details = async(req,res)=>{
+  try {
+      Flights.find({Flight_number:req.params.id}).then(result =>{
+        res.send(result)
+      })
+  }
+  catch(err) {
+console.log(err)
+  }
+}
+// ___________________________________________________________________________________________________________________________________________________//
+
+const user_email_summary = async(req,res)=>{
+  try {
+var x = []
+const z = await Reservations.find({_id:req.params.id}).then(result =>{
+ x = result[0]
+})
+    const MAILING = await Users.find({_id:req.params.user_id}).then(result => {
+           
+      mail_user = result[0].Email
+  })
+      
+  console.log("hello")
+  var transporter = nodemailer.createTransport( {
+    host: "smtp-mail.outlook.com", // hostname
+    secureConnection: false, // TLS requires secureConnection to be false
+    port: 587, // port for secure SMTP
+    tls: {
+      ciphers:'SSLv3'
+  },
+    auth: {
+        user: "projectacl@hotmail.com",
+        pass: "Ultras2007"
+    }
+    
+});
+
+  const msg = {
+      from: 'projectacl@hotmail.com', // sender address
+      to: 'ahmedlokma22@gmail.com', // list of receivers
+    //  to:mail_user
+      subject: "Summary of reservation", // Subject line
+      text: "This is summary of your reservation " + x // tazbeet shakl bokra msh now //
+            
+  }
+  // send mail with defined transport object
+  const info = await transporter.sendMail(msg);
+
+  console.log("Message sent: %s", info.messageId);
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+    // Preview only available when sending through an Ethereal account
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
+  res.send('Email Sent!')
+
+
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
+
+
+
 
 
 module.exports = {
@@ -927,7 +1025,10 @@ module.exports = {
        user_Reservations ,
        user_Reservations_info ,
        adjust_seats_db ,
-       edit_dep_seats
+       user_delete_res ,
+       user_find_flight_details ,
+       delete_seats_from_db_user_deleted_reservation ,
+       user_email_summary 
 
 
       }
