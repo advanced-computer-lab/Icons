@@ -3,6 +3,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import axios from 'axios';
+
+import { Grid,Paper, Avatar, TextField, Button, Typography} from '@material-ui/core'
+import AirplanemodeActiveOutlinedIcon from '@mui/icons-material/AirplanemodeActiveOutlined';
+
+
 class User_Login extends Component {
     constructor() {
         super();
@@ -53,45 +58,93 @@ class User_Login extends Component {
         })
     };
  render (){
+  const paperStyle={padding :20,height:'70vh',width:280, margin:"40px auto"}
+  const avatarStyle={backgroundColor:'#1bbd7e'}
+  const btnstyle={margin:'8px 0'}
      return (
-        <div className = 'CreateFlight' >
 
-        <form noValidate onSubmit={this.onSubmit}>
+
+
+      <Grid>
+      <Paper elevation={10} style={paperStyle}>
+          <Grid align='center'>
+               <Avatar style={avatarStyle}><AirplanemodeActiveOutlinedIcon/></Avatar>
+              <h2>Login</h2>
+          </Grid>
+          {/* <form noValidate onSubmit={this.onSubmit}> */}
+          <TextField label='Username' 
+          placeholder='Enter username' 
+          
+          onChange={this.onChange}
+          required 
+          value={this.state.UserName}
+          fullWidth required/>
+         
+          <TextField label='Password' 
+          placeholder='Enter password' 
+          type='password' 
+          value={this.state.Password}
+           onChange={this.onChange}
+           required 
+          fullWidth required/>
+        
+        
+
+          <Button
+          
+           type='submit'
+           color='primary' 
+           variant="contained" 
+           style={btnstyle} fullWidth>Login</Button>
+          
+           {/* </form> */}
+          <Typography > Do you have an account ?
+               <Link to="/Register" >
+                  Register 
+          </Link>
+          </Typography>
+      </Paper>
+  </Grid>
+
+
+        // <div className = 'CreateFlight' >
+
+        // <form noValidate onSubmit={this.onSubmit}>
                 
         
         
              
                  
-                        <div className='form-group'>
-                          <input
-                            type='text'
-                            placeholder='UserName'
-                            name='UserName'
-                            className='form-control'
-                            value={this.state.UserName}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <div className='form-group'>
-                          <input
-                            type='text'
-                            placeholder='Password'
-                            name='Password'
-                            className='form-control'
-                            value={this.state.Password}
-                            onChange={this.onChange}
-                          />
-                        </div>
+        //                 <div className='form-group'>
+        //                   <input
+        //                     type='text'
+        //                     placeholder='UserName'
+        //                     name='UserName'
+        //                     className='form-control'
+        //                     value={this.state.UserName}
+        //                     onChange={this.onChange}
+        //                   />
+        //                 </div>
+        //                 <br />
+        //                 <div className='form-group'>
+        //                   <input
+        //                     type='text'
+        //                     placeholder='Password'
+        //                     name='Password'
+        //                     className='form-control'
+        //                     value={this.state.Password}
+        //                     onChange={this.onChange}
+        //                   />
+        //                 </div>
                         
                         
-                        <br />
-                        <input
-                            type="submit"
-                            className="btn btn-outline-warning btn-block mt-4"
-                        />
-         </form>
-            </div>
+        //                 <br />
+        //                 <input
+        //                     type="submit"
+        //                     className="btn btn-outline-warning btn-block mt-4"
+        //                 />
+        //  </form>
+        //     </div>
      )
  }
 
