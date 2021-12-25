@@ -431,15 +431,7 @@ const seats = await Flights.find({Flight_number:req.params.id2}).then(result =>{
     }
     else {
       const seats = await Flights.find({Flight_number:req.params.id2}).then(result =>{
-      //  console.log(result[0].Seats_Bussiness[0][0].id)
-      //  console.log(dep_chosen_id)
-      //  const x  = [1,4,5]
-      //  if(x.includes(result[0].Seats_Bussiness[0][0].id)){
-      //    console.log("HELLLLLLLOOOO")
-      //  }
-    //  result[0].Seats_Bussiness[0][1]={id: 2, number: 2, isSelected: false, isReserved: true}
-    //  console.log(result[0].Seats_Bussiness[0][1])
-//  console.log(result[0].Seats_Bussiness)
+  
 
 res.send(result[0].Seats_Bussiness);
     
@@ -1678,31 +1670,30 @@ x = result[0].Seats_Bussiness
 }
 
 })
+console.log("one last chance " +dep_chosen_id[0] )
 for(var i=0; i<x.length;i++){
   for(var j=0; j<x[i].length;j++){
     if(x[i][j]==null){
       continue ;
     }
     if(dep_chosen_id.includes(x[i][j].id)==true){
+      console.log("hell yeah")
       x[i][j].isReserved = true;
     }
   }
 }
 if(cabin == "Economy"){
-  const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:x}).then(result =>{
-  // res.send(true)
-  })
+  console.log("Asra3 mnhaaa")
+  
   const z33 = await Flights.findOneAndUpdate({Flight_number:req.params.id4},{Seats_Economy:y}).then(result =>{
     // res.send(true)
     })
     const seating = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{$inc : {Availlable_Number_of_Economy_Seats : -n}})
     const seating2 = await Flights.findOneAndUpdate({Flight_number:req.params.id4},{$inc : {Availlable_Number_of_Economy_Seats :n }})
-res.send(true)
+// res.send(true)
   }
   else {
-    const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:x}).then(result =>{
-      
-      })
+    
       const z33 = await Flights.findOneAndUpdate({Flight_number:req.params.id4},{Seats_Bussiness:y}).then(result =>{
         
         })
@@ -1712,7 +1703,16 @@ res.send(true)
     
   }
   
-
+if(cabin == "Economy"){
+  const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:x}).then(result =>{
+   
+    })
+}
+else {
+  const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:x}).then(result =>{
+    res.send(true)
+  })
+}
   }
   catch(err){
 
@@ -1956,7 +1956,7 @@ for(var i=0; i<x.length;i++){
     if(x[i][j]==null){
       continue ;
     }
-    if(dep_chosen_id.includes(x[i][j].id)==true){
+    if(return_chosen_id.includes(x[i][j].id)==true){
       x[i][j].isReserved = true;
     }
   }

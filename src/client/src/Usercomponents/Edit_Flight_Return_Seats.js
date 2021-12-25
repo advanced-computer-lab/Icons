@@ -125,7 +125,7 @@ console.log(Number(this.props.match.params.id3))
 
     return (
       <div>
-       <h1>Book Seats For Departure Flight</h1>
+       <h1>Book Seats For Return Flight</h1>
         <div style={{marginTop: '100px'}}>
       
         {this.state.rows.length > 0 && < SeatPicker 

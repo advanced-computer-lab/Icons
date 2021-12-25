@@ -29,7 +29,12 @@ class  UserSearchReturn extends Component {
      
   };
   handledelete = (id2) =>{
+    if(window.confirm("Are you sure you want to book this flight ")==false){
+
+    }
+    else {
     this.props.history.push('/Guest_Summary/'+this.props.match.params.user_id+'/'+this.props.match.params.id+'/'+id2);
+    }
   };
 
   render() {

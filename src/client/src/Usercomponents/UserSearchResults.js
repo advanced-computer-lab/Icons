@@ -34,7 +34,12 @@ class  UserSearchResults  extends Component {
   };
 
   handledelete = (id) =>{
+    if(window.confirm("Are you sure you want to book this flight ")==false){
+
+    }
+    else {
   this.props.history.push('/returnflight_results/'+this.props.match.params.user_id+'/'+id);
+    }
 };
   render() {
  
