@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
+import AirplanemodeActiveOutlinedIcon from '@mui/icons-material/AirplanemodeActiveOutlined';
 
 class UpdateFlight extends Component {
   constructor(props) {
@@ -80,148 +81,95 @@ class UpdateFlight extends Component {
 
 
   render() {
+    const paperStyle={padding :20,height:'30%',width:'30%', margin:"20px auto"}
+    const avatarStyle={backgroundColor:'#1bbd7e'}
+    const btnstyle={margin:'8px 0'}
     return (
-        <div className="UpdateFlight">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <br />
-              <Link to="/" className="btn btn-outline-warning float-left">
-                  Show All Flights
-              </Link>
-            </div>
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Edit Flight</h1>
-              <p className="lead text-center">
-                  Update Flight's Info
-              </p>
-            </div>
-          </div>
+      <form noValidate onSubmit={this.onSubmit}>
+      <Grid>
+          <Paper elevation={10} style={paperStyle}>
+              <Grid align='center'>
+                   <Avatar style={avatarStyle}><AirplanemodeActiveOutlinedIcon/></Avatar>
+                  <h2>Update Flight</h2>
+              </Grid>
+              <TextField label='Flight_number' 
+              placeholder='Enter Flight_number'
+              name='Flight_number'
+                         
+                          value={this.state.Flight_number}
+                          onChange={this.onChange}
+               fullWidth required/>
+              <TextField label='Depature Time'
+               placeholder='Enter Depature Time'
+               name='Departure_time'
+                          
+                          value={this.state.Departure_time }
+                          onChange={this.onChange}
+                fullWidth required/>
+              <TextField label='Arrival Time' 
+              placeholder='Enter Arrival Time' 
+              name='Arrival_time'
+             
+              value={this.state.Arrival_time}
+              onChange={this.onChange}
+               fullWidth required/>
+              <TextField label='Number of Economy Seats' 
+              type={'number'}
+              placeholder='Enter Economy seats no.' 
+              name='Number_of_Economy_Seats'
+              
+              value={this.state.Number_of_Economy_Seats}
+              onChange={this.onChange}
+              fullWidth required/>
+              <TextField label='Number of_Business Class Seats' 
+              type={'number'}
+              name='Number_of_Business_Class_Seats'
+              
+              value={this.state.Number_of_Business_Class_Seats}
+              onChange={this.onChange}
+              placeholder='Enter Bussiness seats no.'
 
-          <div className="col-md-8 m-auto">
-          <form noValidate onSubmit={this.onSubmit}>
-            <div className='form-group'>
-              <label htmlFor="Flight_number">Flight Number</label>
-              <input
-                type='text'
-                placeholder={this.state.Flight_number}
-                name='Flight_number'
-                className='form-control'
-                value={this.state.Flight_number}
-                onChange={this.onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-            <label htmlFor="Departure_time">Departure Time</label>
-              <input
-                type='text'
-                placeholder={this.state.Departure_time}
-                name='Departure_time'
-                className='form-control'
-                value={this.state.Departure_time}
-                onChange={this.onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-            <label htmlFor="Arrival_time">Arrival Time</label>
-              <input
-                type='text'
-                placeholder={this.state.Arrival_time}
-                name='Arrival_time'
-                className='form-control'
-                value={this.state.Arrival_time}
-                onChange={this.onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-            <label htmlFor="Number_of_Economy_Seats">Number Of Economy Seats</label>
-              <input
-                type='number'
-                placeholder={this.state.Number_of_Economy_Seats}
-                name='Number_of_Economy_Seats'
-                className='form-control'
-                value={this.state.Number_of_Economy_Seats}
-                onChange={this.onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-            <label htmlFor="Number_of_Business_Class_Seats">Number Of Business Class Seats</label>
-              <input
-                type='number'
-                placeholder={this.state.Number_of_Business_Class_Seats}
-                name='Number_of_Business_Class_Seats'
-                className='form-control'
-                value={this.state.Number_of_Business_Class_Seats}
-                onChange={this.onChange}
-              />
-            </div>
-            <br />
-            <div className='form-group'>
-            <label htmlFor="Arrival_airport">Arrival Airport</label>
-              <input
-                type='text'
-                placeholder={this.state.Arrival_airport}
-                name='Arrival_airport'
-                className='form-control'
-                value={this.state.Arrival_airport}
-                onChange={this.onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-            <label htmlFor="Departure_airport">Departure Airport</label>
-              <input
-                type='text'
-                placeholder={this.state.Departure_airport}
-                name='Departure_airport'
-                className='form-control'
-                value={this.state.Departure_airport}
-                onChange={this.onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-            <label htmlFor="Arrival_date">Arrival Date</label>
-              <input
-                type = 'yyyy-MM-dd'
-                placeholder={this.state.Arrival_date}
-                name='Arrival_date'
-                className='form-control'
-                value={this.state.Arrival_date}
-                onChange={this.onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-            <label htmlFor="Departure_date">Departure Date</label>
-              <input
-                type='yyyy-MM-dd'
-                placeholder={this.state.Departure_date}
-                name='Departure_date'
-                className='form-control'
-                value={this.state.Departure_date}
-                onChange={this.onChange}
-              />
-            </div>
-            <br />
-
-            <button type="submit" className="btn btn-outline-info btn-lg btn-block">Update Flight</button>
-            </form>
-          </div>
-
-        </div>
-      </div>
+               fullWidth required/>
+              <TextField label='Arrival Airport'
+               placeholder='Enter Arrival Airport' 
+               name='Arrival_airport'
+                          
+                          value={this.state.Arrival_airport}
+                          onChange={this.onChange}
+               fullWidth required/>
+              <TextField label='Departure Airport'
+               placeholder='Departure Airport' 
+               name='Departure_airport'
+               
+               value={this.state.Departure_airport}
+               onChange={this.onChange}
+               fullWidth required/>
+            <h4>Departure Date</h4>
+              <TextField 
+              type={'date'}
+              name='Departure_date'
+              
+              value={this.state.Departure_date}
+              onChange={this.onChange}
+                fullWidth required/>
+                <h4>Arrival Date</h4>
+              <TextField 
+              type={'date'}
+              name='Arrival_date'
+                        
+                          value={this.state.Arrival_date}
+                          onChange={this.onChange}
+                
+               fullWidth required/>
+              <Button type='submit'
+               color='primary'
+                variant="contained" 
+                style={btnstyle} fullWidth>Update</Button>
+              
+              
+          </Paper>
+      </Grid>
+      </form>
     );
   }
 }

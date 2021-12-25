@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ReservationInfoCard from './ReservationInfoCard'
+import {  Button} from '@material-ui/core'
 class Reservation_Info extends Component {
   constructor(props) {
     super(props);
@@ -60,12 +61,31 @@ class Reservation_Info extends Component {
       .catch(err => {
      
       })
+
+
+  };
+  
+  onEmail = e => {
+    e.preventDefault();
+   
+    this.props.history.push('/Current_Reservations/'+axios
+    .get('http://localhost:8000/user/email_me/'+this.props.match.params.user_id+"/"+this.props.match.params.id)
+    .then(res => {
+       
+      this.setState({
+        flights: res.data
+      })
+    })
+    .catch(err => {
+      console.log("Error from ShowFlightDetails");
+    }));
+  
   };
 
   
 
   render() {
-
+    const btnstyle={margin:'8px 0'};
     const flights = this.state.flights;
    
     
@@ -82,7 +102,13 @@ class Reservation_Info extends Component {
         }
     return (
       <div>
-
+           <Button
+          
+          type='submit'
+          color='primary' 
+          variant="contained" 
+          onClick = {this.onEmail}
+          style={btnstyle} >Email</Button>
      <div>
        {summaryList}
      </div>

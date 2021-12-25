@@ -22,7 +22,16 @@ import ViewUsers from './Usercomponents/ViewUsers';
 import Return_Seats from './Usercomponents/Return_Seats';
 import UpdateUser from './Usercomponents/UpdateUser';
 import Guest_Summary from './Usercomponents/Guest_Summary';
-import login from './Usercomponents/login';
+
+
+import navbar from './Admincomponents/Navbar';
+import usernav from './Usercomponents/User_Home';
+import Sign_Up from './Admincomponents/Sign_Up';
+import User_Login from './Admincomponents/User_Login';
+import Edit_Flight_Search from './Usercomponents/Edit_Flight_Search';
+import Edit_Flight_Search_Return from './Usercomponents/Edit_Flight_Search_Return';
+import Change_Password from './Admincomponents/Change_Password';
+
 
 class App extends Component {
   render() {
@@ -47,8 +56,27 @@ class App extends Component {
           <Route path='/Reservation_Info/:id/:user_id' component={Reservation_Info}/>
           <Route path='/Update_Info/:id' component={UpdateUser} />
           <Route path='/Guest_Summary/:id' component={Guest_Summary} />
-          <Route path='/Login' component={login} />
+          
+          <Route path='/sign_up' component={Sign_Up} />
+          <Route path='/login' component={User_Login} />
+          <Route path='/change_passowrd/:id' component={Change_Password} />
+          
+          <Route path='/navbar' component={navbar} />
+          <Route path='/usernav' component={usernav}/>
          
+          <Route path='/edit_flight_search/:user_id/:id/:id2/:id3/:id4' component={Edit_Flight_Search} />
+        
+
+
+          <Route path='/edit_flight_search_return/:user_id/:id/:id2/:id3/:id4' component={Edit_Flight_Search_Return} />
+
+          
+            
+
+            
+
+
+          
         </div>
       </Router>
     );

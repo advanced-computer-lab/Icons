@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Grid,Paper, Avatar, TextField, Button, Typography} from '@material-ui/core'
+import AirplanemodeActiveOutlinedIcon from '@mui/icons-material/AirplanemodeActiveOutlined';
 class SearchFlights extends Component {
     constructor(pros) {
         super(pros);
@@ -67,134 +69,95 @@ class SearchFlights extends Component {
         })
     };
  render (){
+  const paperStyle={padding :20,height:'30%',width:'30%', margin:"20px auto"}
+  const avatarStyle={backgroundColor:'#1bbd7e'}
+  const btnstyle={margin:'8px 0'}
      return (
-        <div className = 'SearchFlight' >
+        // <div className = 'SearchFlight' >
 
         <form Validate onSubmit={this.onSubmit}>
-                        <div className='form-group'>
-                          <input
-                            type='text'
-                          //  required = 'true'
-                            placeholder='Flight_number'
-                            name='Flight_number'
-                            className='form-control'
-                            value={this.state.Flight_number}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-        
-        
-                        <div className='form-group'>
-                          <input
-                            type='text'
-                            
-                            placeholder='Departure_time'
-                            name='Departure_time'
-                         //   required = 'true'
-                            className='form-control'
-                            value={this.state.Departure_time }
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <div className='form-group'>
-                          <input
-                            type='text'
-                       //     required = 'true'
-                            placeholder='Arrival_time'
-                            name='Arrival_time'
-                            className='form-control'
-                            value={this.state.Arrival_time}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-        
-        
-                        <div className='form-group'>
-                          <input
-                            type='number'
-                         //   required = 'true'
-                            placeholder='Number_of_Economy_Seats'
-                            name='Number_of_Economy_Seats'
-                            className='form-control'
-                            value={this.state.Number_of_Economy_Seats}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <div className='form-group'>
-                          <input
-                            type='number'
-                      //      required = 'true'
-                            placeholder='Number_of_Business_Class_Seats'
-                            name='Number_of_Business_Class_Seats'
-                            className='form-control'
-                            value={this.state.Number_of_Business_Class_Seats}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <div className='form-group'>
-                          <input
-                            type='text'
-                      //      required = 'true'
-                            placeholder='Arrival_airport'
-                            name='Arrival_airport'
-                            className='form-control'
-                            value={this.state.Arrival_airport}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <div className='form-group'>
-                          <input
-                            type='text'
-                        //    required = 'true'
-                            placeholder='Departure_airport'
-                            name='Departure_airport'
-                            className='form-control'
-                            value={this.state.Departure_airport}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <div className='form-group'>
-                          <input
-                            type='date'
-                         //   required = 'true'
-                            placeholder='Departure_date'
-                            name='Departure_date'
-                            className='form-control'
-                            value={this.state.Departure_date}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <div className='form-group'>
-                          <input
-                            type='date'
-                         //   required = 'true'
-                            placeholder='Arrival_date'
-                            name='Arrival_date'
-                            className='form-control'
-                            value={this.state.Arrival_date}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <input
-                            type="submit"
-                            className="btn btn-outline-warning btn-block mt-4"
-                            value='search'
-                        />
-         </form>
-            </div>
+
+<Grid>
+      <Paper elevation={10} style={paperStyle}>
+          <Grid align='center'>
+               <Avatar style={avatarStyle}><AirplanemodeActiveOutlinedIcon/></Avatar>
+              <h2>Search Flight</h2>
+          </Grid>
+          <TextField label='Flight_number' 
+          placeholder='Enter Flight_number' 
+          name='Flight_number'
+          
+          value={this.state.Flight_number}
+          onChange={this.onChange}
+          fullWidth />
+          <TextField label='Depature Time'
+           placeholder='Enter Depature Time'
+           name='Departure_time'
+              value={this.state.Departure_time }
+              onChange={this.onChange}
+            fullWidth />
+
+          <TextField label='Arrival Time' 
+          placeholder='Enter Arrival Time '
+          name='Arrival_time'
+          value={this.state.Arrival_time}
+          onChange={this.onChange}
+          fullWidth />
+
+          <TextField label='Number of Economy Seats'
+           placeholder='Enter Economy seats no.' 
+           type={'number'}
+           name='Number_of_Economy_Seats'
+           value={this.state.Number_of_Economy_Seats}
+           onChange={this.onChange}
+           fullWidth />
+
+          <TextField label='Number of_Business Class Seats'
+          type={'number'}
+           placeholder='Enter Bussiness seats no.' 
+           name='Number_of_Business_Class_Seats'
+           value={this.state.Number_of_Business_Class_Seats}
+           onChange={this.onChange}
+           fullWidth />
+          <TextField label='Arrival Airport' 
+          placeholder='Enter Arrival Airport' 
+          name='Arrival_airport'
+          value={this.state.Arrival_airport}
+          onChange={this.onChange}
+          fullWidth />
+          <TextField label='Departure Airport'
+           placeholder='Departure Airport'
+           name='Departure_airport'
+           value={this.state.Departure_airport}
+           onChange={this.onChange}
+            fullWidth />
+          <h4>Depature Date</h4>
+          <TextField  
+          name='Departure_date'
+          value={this.state.Departure_date}
+          onChange={this.onChange}
+            type={'date'}
+            fullWidth />
+          <h4>Arrival Date</h4>
+          <TextField 
+           name='Arrival_date'
+           value={this.state.Arrival_date}
+           onChange={this.onChange}
+              type={'date'}
+              fullWidth />
+
+          <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Search</Button>
+          
+          
+      </Paper>
+  </Grid>
+
+                        
+       </form>
      )
  }
-
 }
+
 
 
 export default SearchFlights;

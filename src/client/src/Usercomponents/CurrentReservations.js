@@ -6,7 +6,7 @@ import CurrentReservationsCard from './CurrentReservationsCard'
 class CurrentReservations extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = {  
       summarys: [
 
       ]
@@ -38,6 +38,7 @@ class CurrentReservations extends Component {
 
 
   render() {
+   
     const summarys = this.state.summarys;
 console.log(summarys)
     let summaryList;
@@ -52,11 +53,19 @@ console.log(summarys)
 
     }
 
+   
     return (
+      
       <div className="ShowBookList">
+        
+         
+
         <div className="container">
           <div className="row">
             <div className="col-md-12">
+           
+           
+        
               <br />
               <h2 className="display-4 text-center">My Reservations </h2>
             </div>
@@ -78,5 +87,6 @@ console.log(summarys)
     );
   }
 }
+
 
 export default CurrentReservations;
