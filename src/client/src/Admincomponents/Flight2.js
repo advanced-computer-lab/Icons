@@ -14,17 +14,7 @@ const Flight2 = (props) => {
         <div className="flight-container">
        
             <div className="desc">
-                 {/* <h2>
-                   
-                    <Link to={`/returnflight_results/${flight.Flight_number}`}  onClick={ (event) => { if(window.confirm('Are you sure you want to book this flight ?') == false) {
-                       event.preventDefault();
-                   
-        
-              };}}  >
-                    <p> { flight.Flight_number } </p>
-                    </Link>
-                </h2> */}
-               
+          
         
         
                 
@@ -54,7 +44,7 @@ const Flight2 = (props) => {
             
             <p>Baggae allowance : {flight. Baggage_allowance }</p>  
             <button onClick={()=> props.handledelete(flight.Flight_number)}>
-                delete
+                choose
             </button>
             </div>
         </div>

@@ -2,10 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const Guest_SummaryCard = (props) => {
+const Edit_Dep_Summ_Card = (props) => {
     const  summary  = props.summary;
   
+    var str='' ;
 
+    for(var i =0 ;i<summary.Seats.length;i++){
+        if(i==0){
+            str = summary.Seats[0]+" , "
+         
+        }
+        else if(i== summary.Seats.length -1 ){
+          str =str + summary.Seats[i]
+       
+        }
+        else {
+          str =str + summary.Seats[i]+" , "
+         
+        }
+        console.log(str)
+       }
 
 
     return(
@@ -33,6 +49,7 @@ const Guest_SummaryCard = (props) => {
                   <p> Cabin :{summary.Cabin}</p>
                   
                   <p> Total Price for Round-trip :{summary.total_price}</p>
+                  <p>  Chosen Return  Seats : {str}   </p>
              
                   
                   
@@ -42,4 +59,4 @@ const Guest_SummaryCard = (props) => {
     )
 };
 
-export default Guest_SummaryCard;
+export default  Edit_Dep_Summ_Card;

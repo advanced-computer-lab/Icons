@@ -49,17 +49,18 @@ router.post('/change_seats5/:user_id/:id/:id2', userController.adjust_res_with_n
 
 router.get('/adjust_edit_seats2/:user_id/:id/:id2', userController.edit_return_seats_same_flight );    
 router.get('/get_old_seats2/:id', userController.get_old_return_seats); 
-router.get('/get_old_seats_id2/:id', userController.get_old_return_seats_id );
+router.get('/get_old_seats_id2/:id', userController.get_old_return_seats_id ); 
 
 
+router.post('/edit_search/:user_id/:id/:id2/:id3/:id4', userController.user_edit_dep_flight_search);
+router.get('/edit_search_result', userController.user_edit_dep_flight_search_results);    
 
+router.get('/edit_departure_seats/:user_id/:id/:id2', userController.user_edit_dep_flight_seats );   
+router.get('/edit_summary_dep/:user_id/:id/:id2/:id3/:id4', userController.user_edit_summary_dep );     
+                                                                                                
 
-
-
-
-
-
-
+router.get('/edit_dep_db/:user_id/:id/:id2/:id3/:id4', userController.user_edit_dep_adjust_db ); 
+router.get('/edit_res_db/:user_id/:id/:id2/:id3/:id4', userController.user_edit_dep_flight_res); 
 
 
 router.get('/lokma',userController.user_test)

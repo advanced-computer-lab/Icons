@@ -45,6 +45,7 @@ else {
 
   handleSubmit = e =>{
     e.preventDefault();
+    this.props.history.push('/edit_flight_search/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2+"/"+this.props.match.params.id3+"/"+this.props.match.params.id4);
     
   }
   
