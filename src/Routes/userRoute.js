@@ -29,7 +29,7 @@ router.get('/current_reservations/:user_id/:id', userController.user_Reservation
 router.delete('/delete_reservation/:id', userController.user_delete_res);  
 router.get('/user_flight_info/:user_id/:id/:id2', userController.user_find_flight_details);  
 router.get('/adjust_seats_db_again/:id', userController.delete_seats_from_db_user_deleted_reservation); 
-router.get('/email_me/:user_id/:id', userController.user_email_summary);    
+router.get('/email_me/:user_id/:id', userController.user_email_summary);    //not tested yet //
 
 router.get('/adjust_edit_seats/:user_id/:id/:id2', userController.edit_dep_seats_same_flight);    
 router.get('/get_old_seats/:id', userController.get_old_dep_seats); 
@@ -51,7 +51,7 @@ router.get('/adjust_edit_seats2/:user_id/:id/:id2', userController.edit_return_s
 router.get('/get_old_seats2/:id', userController.get_old_return_seats); 
 router.get('/get_old_seats_id2/:id', userController.get_old_return_seats_id ); 
 
-
+///edit _dep///
 router.post('/edit_search/:user_id/:id/:id2/:id3/:id4', userController.user_edit_dep_flight_search);
 router.get('/edit_search_result', userController.user_edit_dep_flight_search_results);    
 
@@ -61,7 +61,20 @@ router.get('/edit_summary_dep/:user_id/:id/:id2/:id3/:id4', userController.user_
 
 router.get('/edit_dep_db/:user_id/:id/:id2/:id3/:id4', userController.user_edit_dep_adjust_db ); 
 router.get('/edit_res_db/:user_id/:id/:id2/:id3/:id4', userController.user_edit_dep_flight_res); 
+/// end of edit_dep///
+
+// edit_return///
+
+router.post('/edit_search2/:user_id/:id/:id2/:id3/:id4', userController.user_edit_return_flight_search);
+router.get('/edit_search_result2', userController.user_edit_return_flight_search_results);   
+
+router.get('/edit_return_seats/:user_id/:id/:id2', userController.user_edit_return_flight_seats);  
+router.get('/edit_summary_return/:user_id/:id/:id2/:id3/:id4', userController.user_edit_summary_return);  
 
 
+router.get('/edit_res_db2/:user_id/:id/:id2/:id3/:id4', userController.user_edit_return_flight_res); 
+router.get('/edit_return_db/:user_id/:id/:id2/:id3/:id4', userController.user_edit_return_adjust_db ); 
+
+/// end of edit_return//
 router.get('/lokma',userController.user_test)
 module.exports = router;

@@ -14,32 +14,32 @@ var temp3;
 var temp4;
 var temp5 ;
 var temp7 ;
-var flightno1;
-var flightno2;
+// var flightno1;
+// var flightno2;
 var cabin;
-var loggedin;
-var carla;
-var helper1;
-var helper2;
-var helper5;
-var x = [] 
-var x_id = []
-var y = [] 
-var y_id = []
+// var loggedin;
+// var carla;
+// var helper1;
+// var helper2;
+// var helper5;
+// var x = [] 
+// var x_id = []
+// var y = [] 
+// var y_id = []
 var dep_chosen_id = []
 var dep_chosen = []
 var return_chosen = []
 var return_chosen_id = []
-var new_dep_seats = []
-var new_dep_seats_id = []
+// var new_dep_seats = []
+// var new_dep_seats_id = []
 
-var new_return_seats = []
-var new_return_seats_id = []
-var megan;
+// var new_return_seats = []
+// var new_return_seats_id = []
+// var megan;
 var mail_user ;
 var temp100;
-var no_of_availlable_seats;
-var no_of_availlable_seats2;
+// var no_of_availlable_seats;
+// var no_of_availlable_seats2;
 var  booking_number;
 var pricy = 0;
 var cabina ;
@@ -72,7 +72,7 @@ const user_flight_find = (req, res) => {
 
     }
    
-console.log(temp7);   
+// console.log(temp7);   
   
    
    if(temp5 ==true)
@@ -1522,7 +1522,7 @@ const user_edit_dep_flight_seats = async (req,res)=>{
       try {
         console.log(req.params.id2)
         console.log(cabin)
-        cabin = "Economy"
+       
         if(cabin == 'Economy'){
     const seats = await Flights.find({Flight_number:req.params.id2}).then(result =>{
     
@@ -1720,11 +1720,279 @@ res.send(true)
 }
 
 
+// __________________________________________________________________________________________________________________________________________//
+
+const user_edit_return_flight_search = async(req,res)=>{
+  console.log("lokmaaaaaaaaaaaaaa")
+  console.log(req.params.id3)
+  console.log(Number(req.params.id4))
+  var dep_airport;
+  var return_airport;
+  try {
+var a = Number(req.params.id4) // no of passengers //
+const z = await  Flights.find({Flight_number:req.params.id2}).then(result =>{
+   dep_airport = result[0].Departure_airport
+   return_airport = result[0].Arrival_airport
+})
+
+if(req.params.id3 == "Economy"){
+  cabin = "Economy"
+const z1 = await  Flights.find({     Departure_airport:dep_airport ,
+  Arrival_airport :return_airport ,
+ Departure_date: req.body.Departure_date,
+ Arrival_date:req.body.Arrival_date,
+ Availlable_Number_of_Economy_Seats:{$gte:a }
+  
+ }).then(result =>{
+   carlita = result ;
+   console.log(result)
+   res.send(result);
+ })
+}
+else {
+  const z1 = await  Flights.find({     Departure_airport:dep_airport ,
+    Arrival_airport :return_airport ,
+   Departure_date: req.body.Departure_date,
+   Arrival_date:req.body.Arrival_date,
+   Availlable_Number_of_Business_Class_Seats:{$gte:a }
+    
+   }).then(result =>{
+     carlita = result ;
+     res.send(result);
+   })
+}
+
+  }
+
+  catch(err){
+    console.log(err)
+  }
+}
+
+
+const user_edit_return_flight_search_results = async (req,res)=>{
+  try {
+    console.log("helllllllllo")
+    if(carlita.length > 0){
+   res.send(carlita)
+    }
+    else {
+      res.status(400).send("Invalid Criteria");
+    }
+  }
+  catch(err){
+
+  }
+}
+
+
+const user_edit_return_flight_seats = async (req,res)=>{
+   
+  try {
+    console.log(req.params.id2)
+    console.log(cabin)
+   
+    if(cabin == 'Economy'){
+const seats = await Flights.find({Flight_number:req.params.id2}).then(result =>{
+
+
+   res.send(result[0].Seats_Economy);
+})
+
+    }
+    else {
+      const seats = await Flights.find({Flight_number:req.params.id2}).then(result =>{
+     
+        res.send(result[0].Seats_Bussiness);
+    
+       
+   })
+  }
+   
+
+  }
+ 
+
+
+catch(err){
+
+}
+}
+
+
+
+const user_edit_summary_return = async(req,res)=>{
+  try {
+var x = []
+var y =[]
+var a  ;
+const z0 = await Reservations.find({_id:req.params.id}).then(result=> {
+  a = result[0].total_price
+})
+const z1 = await Flights.find({Flight_number:req.params.id4}).then(result =>{
+  y[0] = result[0]
+
+ if(cabin == "Economy"){
+ oldprice = Number(req.params.id3) * result[0].Economy_price
+ }
+ else {
+   oldprice = Number(req.params.id3) * result[0].Bussiness_price
+ }
+})
+const z = await Flights.find({Flight_number:req.params.id2}).then(result => {
+  x[0] = result[0]
+  pricy = 0;
+  
+  if(cabin == "Economy"){
+    pricy = Number(req.params.id3) * Number(result[0].Economy_price)  ;  
+
+    
+}
+else {
+pricy = Number(req.params.id3) * Number(result[0].Bussiness_price)  ; 
+
+}
+})
+if(oldprice != pricy){
+  diff = true ;
+}
+var t = 0;
+t = Number(a) - oldprice ;
+console.log(pricy + " " + oldprice)
+pricy = pricy + t
+pricy = pricy + ""
+const xxx = [{Flight_number:req.params.id2 , Cabin:cabin , Departure_time:x[0].Departure_time,Arrival_time:x[0].Arrival_time,Departure_date:x[0].Departure_date,Arrival_date:x[0].Arrival_date,Departure_airport:x[0].Departure_airport,Arrival_airport:x[0].Arrival_airport ,total_price:pricy, Seats:return_chosen}]
+res.send(xxx)
+
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
+
+const user_edit_return_flight_res = async(req,res)=>{
+ 
+  try {
+  
+  
+  var x = []
+  
+  const z = await Flights.find({Flight_number:req.params.id2}).then(result =>{
+   x[0] = result[0]
+  })
+  
+  const z1 = await Reservations.findOneAndUpdate({_id:req.params.id},{Return_Flight_number:req.params.id2,Return_Flight_Departure_time:x[0].Departure_time,Return_Flight_Arrival_time:x[0].Arrival_time,Return_Flight_Arrival_date:x[0].Arrival_date,Return_Flight_Departure_date:x[0].Departure_date,Return_Flight_Arrival_airport:x[0].Arrival_airport,Return_Flight_Departure_airport:x[0].Departure_airport,total_price:pricy,Cabin:cabin,Return_seats_id:return_chosen_id, Return_seats:return_chosen}).then(result =>{
+    res.send(true)
+  })
+  
+  
+  }
+  catch(err){
+    console.log(err)
+  }
+  
+  
+  }
+
+
+
+
+const user_edit_return_adjust_db = async (req,res)=>{
+  try {
+   
+var x = []
+var y = []
+
+var l = []
+
+var n ;
+const z2 = await Reservations.find({_id:req.params.id}).then(result =>{
+
+l = result[0].Return_seats_id
+n = result[0].Return_seats_id.length
+  
+  })
+const z1 = await Flights.find({Flight_number:req.params.id4}).then(result =>{
+
+  if(cabin == "Economy"){
+  y = result[0].Seats_Economy
+  }
+  else {
+  y = result[0].Seats_Bussiness
+  }
+  
+  })
+
+
+
+  for(var i=0; i<y.length;i++){
+    for(var j=0; j<y[i].length;j++){
+      if(y[i][j]==null){
+        continue ;
+      }
+      if(l.includes(y[i][j].id)==true){
+        y[i][j].isReserved = false;
+      }
+    }
+  }
 
 
 
 
 
+const z = await Flights.find({Flight_number:req.params.id2}).then(result =>{
+
+if(cabin == "Economy"){
+x = result[0].Seats_Economy
+}
+else {
+x = result[0].Seats_Bussiness
+}
+
+})
+for(var i=0; i<x.length;i++){
+  for(var j=0; j<x[i].length;j++){
+    if(x[i][j]==null){
+      continue ;
+    }
+    if(dep_chosen_id.includes(x[i][j].id)==true){
+      x[i][j].isReserved = true;
+    }
+  }
+}
+if(cabin == "Economy"){
+  const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Economy:x}).then(result =>{
+  
+  })
+  const z33 = await Flights.findOneAndUpdate({Flight_number:req.params.id4},{Seats_Economy:y}).then(result =>{
+    
+    })
+    const seating = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{$inc : {Availlable_Number_of_Economy_Seats : -n}})
+    const seating2 = await Flights.findOneAndUpdate({Flight_number:req.params.id4},{$inc : {Availlable_Number_of_Economy_Seats :n }})
+     res.send(true)
+  }
+  else {
+    const z3 = await Flights.findOneAndUpdate({Flight_number:req.params.id2},{Seats_Bussiness:x}).then(result =>{
+      
+      })
+      const z33 = await Flights.findOneAndUpdate({Flight_number:req.params.id4},{Seats_Bussiness:y}).then(result =>{
+        
+        })
+        const seating = await Flights.findOneAndUpdate({Flight_number:req.params.id},{$inc : {Availlable_Number_of_Economy_Seats : -n}})
+        const seating2 = await Flights.findOneAndUpdate({Flight_number:req.params.id},{$inc : {Availlable_Number_of_Economy_Seats : n}})
+        res.send(true)
+    
+  }
+  
+
+  }
+  catch(err){
+
+  }
+}
+
+  
 
 
 
@@ -1781,7 +2049,14 @@ module.exports = {
        user_edit_dep_flight_seats ,
        user_edit_summary_dep ,
        user_edit_dep_adjust_db ,
-       user_edit_dep_flight_res
+       user_edit_dep_flight_res ,
+       user_edit_return_flight_search ,
+       user_edit_return_flight_search_results ,
+       user_edit_return_flight_seats ,
+       user_edit_summary_return ,
+       user_edit_return_flight_res ,
+       user_edit_return_adjust_db
+       
 
 
 
