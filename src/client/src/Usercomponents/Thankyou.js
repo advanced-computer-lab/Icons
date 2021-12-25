@@ -11,11 +11,28 @@ class Thankyou extends Component {
 
   componentDidMount() {
  
-  
+    axios                             
+    .get('http://localhost:8000/user/save_reservation/'+this.props.match.params.user_id+"/"+this.props.match.params.id+"/"+this.props.match.params.id2)
+    .then(res => {
+        
+       
+    })
+    .catch(err =>{
+      console.log('Error from ShowFlightsList');
+    })
   
 
     axios
-    .get('http://localhost:8000/user/helper5')
+    .get('http://localhost:8000/user/adjust_seats/'+this.props.match.params.user_id+"/"+this.props.match.params.id+"/"+this.props.match.params.id2)
+    .then(res => {
+        
+       
+    })
+    .catch(err =>{
+      console.log('Error from ShowFlightsList');
+    })
+    axios
+    .get('http://localhost:8000/user/adjust_seats_db/'+this.props.match.params.user_id+"/"+this.props.match.params.id+"/"+this.props.match.params.id2)
     .then(res => {
         
        
@@ -28,7 +45,12 @@ class Thankyou extends Component {
 
 };
    
+onSubmit = e => {
+  e.preventDefault();
+ 
+  this.props.history.push('/Current_Reservations/'+this.props.match.params.user_id);
 
+};
 
 
   render() {
@@ -58,11 +80,12 @@ If you don’t meet these requirements, you are NOT fully vaccinated.
  CDC has not recommended the use of mix-and-match COVID-19 vaccine primary series. However, such strategies are increasingly common in many countries outside of the United States. Therefore, for the of purpose of interpreting vaccination records for travel to the United States, CDC will accept combinations of accepted COVID-19 vaccines.
           </p>
         </div>
-        <Link to={`/summary/${this.props.match.params.user_id}`}>
+        {/* <Link to={`/summary/${this.props.match.params.user_id}`}>
      <button type="button">
          Proceed 
      </button>
- </Link>
+ </Link> */}
+ <button type="submit" onClick = {this.onSubmit} className="btn btn-outline-info btn-lg btn-block">proceed</button>
  
       </div>
     );

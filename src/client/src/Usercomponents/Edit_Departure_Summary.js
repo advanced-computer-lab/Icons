@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Guest_SummaryCard from './Guest_SummaryCard'
+import Edit_Dep_Summ_Card from './Edit_Dep_Summ_Card'
 
-class Guest_Summary extends Component {
+class Edit_Departure_Summary extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,7 @@ class Guest_Summary extends Component {
   componentDidMount() {
    
     axios
-    .get('http://localhost:8000/user/guest_summary/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2)
+    .get('http://localhost:8000/user/edit_summary_dep/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2+"/"+this.props.match.params.id3+"/"+this.props.match.params.id4)
     .then(res => {
       
       this.setState({
@@ -34,14 +34,25 @@ class Guest_Summary extends Component {
 onSubmit = e => {
   e.preventDefault();
  
+if(window.confirm("Are you sure you want to confirm this reservtion")==false){
 
-if(this.props.match.params.id == "undefined"){
-alert('you need to login')
-
-this.props.history.push('/test2')
 }
+
 else {
-  this.props.history.push('/Departure_seats/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2);
+  axios
+  .get('http://localhost:8000/user/edit_dep_db/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2+"/"+this.props.match.params.id3+"/"+this.props.match.params.id4)
+  .then(res => {
+      
+  })
+  axios
+  .get('http://localhost:8000/user/edit_res_db/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2+"/"+this.props.match.params.id3+"/"+this.props.match.params.id4)
+  .then(res => {
+       
+  })
+
+
+    alert("Reservation is booked Sucessfully !!")
+  this.props.history.push('/Current_Reservations/'+this.props.match.params.user_id);
 }
 };
 
@@ -57,7 +68,7 @@ console.log(summarys)
       summaryList = "there is no Reservation record!";
     } else {
       summaryList = summarys.map((summary) =>
-        <Guest_SummaryCard summary={summary}  />
+        <Edit_Dep_Summ_Card  summary={summary}  />
       );
     
 
@@ -88,4 +99,4 @@ console.log(summarys)
   }
 }
 
-export default Guest_Summary;
+export default Edit_Departure_Summary;

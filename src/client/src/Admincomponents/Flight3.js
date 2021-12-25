@@ -1,8 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserCard from '../Usercomponents/UserCard';
-import ViewUsers from '../Usercomponents/ViewUsers';
+
 
 
 const Flight3 = (props) => {
@@ -12,21 +11,12 @@ const Flight3 = (props) => {
         <div className="flight-container">
        
             <div className="desc">
-                <h2>
-                    
-                    <Link to={`/Guest_Summary/${flight.Flight_number}`}   onClick={ (event) => { if(window.confirm('Are you sure you want to book this Return flight ?') == false) {
-                       event.preventDefault();
-                   
-        
-              };}}  >
-                    <p> { flight.Flight_number } </p>
-                    </Link>
-                </h2>
+           
                
         
         
                 
-                
+                   <p> Flight Number : {flight.Flight_number} </p>
                   <p> Departure Date : {flight.Departure_date}</p>
                   
                   <p> Arrival Date : {flight.Arrival_date}</p>
@@ -50,9 +40,43 @@ const Flight3 = (props) => {
 <p>Flight Duration : {flight.flight_duration}</p> 
                 
 <p>Baggae allowance : {flight. Baggage_allowance }</p> 
+<button onClick={()=> props.handledelete(flight.Flight_number)}>
+                delete
+            </button>
             </div>
         </div>
     )
 };
 
 export default Flight3;
+// import axios from 'axios';
+// import React from 'react';
+// import { Link } from 'react-router-dom';
+// import FlightCard3 from './FlightCard3';
+// import { Container, Grid } from '@mui/material';
+
+
+
+
+// const Flight3 = (props) => {
+//     const  flight  = props.flight;
+    
+//     return(
+//         <div className="flight-container">
+       
+//             <div className="desc">
+//             <Container  columnSpacing={{md: 3, lg: 4}} rowSpacing={2} spacing={3}>
+//                 <Grid container margin={10} paddingLeft={30}>
+//                     <Grid item md={6}>    
+//                      {/* <FlightCard3 flight = {flight}> 
+//                      </FlightCard3>   */}
+//                        <FlightCard3 flight = {flight} handledelete = {this.handledelete}></FlightCard3>
+//                   </Grid>
+//                 </Grid>
+//              </Container>
+//             </div>
+//         </div>
+//     )
+// };
+
+// export default Flight3;

@@ -1,32 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-
-
+import axios from 'axios';
+import UserSearchResults from '../Usercomponents/UserSearchResults';
 
 const Flight2 = (props) => {
+
     const  flight  = props.flight;
-    const history = useHistory()
-    const user = props.user
-  
+    // const history = useHistory()
+
+  console.log(props)
     return(
         <div className="flight-container">
        
             <div className="desc">
-                <h2>
-                    <Link to={`/returnflight_results/${flight.Flight_number}`}  onClick={ (event) => { if(window.confirm('Are you sure you want to book this flight ?') == false) {
-                       event.preventDefault();
-                   
-        
-              };}}  >
-                    <p> { flight.Flight_number } </p>
-                    </Link>
-                </h2>
-               
+          
         
         
                 
-               
+              
                   <p> Departure Date : {flight.Departure_date}</p>
                   
                   <p> Arrival Date : {flight.Arrival_date}</p>
@@ -50,7 +42,10 @@ const Flight2 = (props) => {
  
             <p>Flight Duration : {flight.flight_duration}</p> 
             
-            <p>Baggae allowance : {flight. Baggage_allowance }</p> 
+            <p>Baggae allowance : {flight. Baggage_allowance }</p>  
+            <button onClick={()=> props.handledelete(flight.Flight_number)}>
+                choose
+            </button>
             </div>
         </div>
     )

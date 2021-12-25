@@ -4,30 +4,82 @@ const userController = require('../Controller/userController');
 const router = express.Router();
 router.post('/search', userController.user_flight_find);
 router.get('/search_Results', userController.user_search_result);
-router.post('/update/:id',userController.update_user);
-router.get('/user_info/:id',userController.user_info);
 router.get('/search_Return', userController.user_search_result_return);
 router.get('/seats', userController.user_seats);
-router.get('/seats3', userController.find_seats_departure);
-router.post('/test2',userController.save_seats);
-router.post('/test3', userController.delete_seats);
-router.get('/getdepartureflightnumber/:id',userController.deparute_flightno);
-router.get('/getretrunflightnumber/:id',userController.return_flightno)
-router.get('/show', userController.user_findall);
-router.get('/getuserid/:user_id',userController.save_userid);
-router.get('/seats4', userController.find_seats_return);
-router.post('/test22',userController.save_seats2);
-router.post('/test33', userController.delete_seats2);
-router.get('/helper5', userController.user_summary_helper5);
-router.get('/helper6', userController.user_summary_helper6);
-router.get('/helper7/:user_id',userController.user_Reservations);
-router.get('/helper8', userController.user_summary_helper7);
-router.get('/reservation_info/:id',userController.user_Reservations_info)
-router.delete('/delete_reservation/:id',userController.delete_Reservation)
-router.get('/send_mail/:id',userController.send_mail)
-router.get('/adjust_seats',userController.adjust_seats)
-router.get('/guest_summary/:id',userController.guest_summary)
-router.get('/adjust_price',userController.calculate_price)
-router.get('/save/:user_id',userController.helper10);
-router.get('/send_id',userController.helper11);
+router.get('/reservation_info/:user_id/:id',userController.user_Reservations_info)
+router.get('/send_mail/:user_id/:id',userController.send_mail)
+
+
+// ___________________________________________________________________//
+router.post('/sign_up', userController.user_regisertaion);
+router.post('/login', userController.user_login);
+router.post('/change_password/:id', userController.user_change_password);
+router.get('/guest_summary/:user_id/:id/:id2',userController.user_guest_summary); 
+router.get('/departure_seats/:user_id/:id/:id2',userController.Flight_Departure_seats); 
+router.get('/return_seats/:user_id/:id/:id2',userController.Flight_Return_seats);    
+router.post('/save_seats', userController.user_save_seats_dep);
+router.post('/save_seats_id', userController.user_save_seats_dep_id);
+router.post('/return_save_seats_id', userController.user_save_seats_return_id);
+router.post('/return_save_seats', userController.user_save_seats_return);
+router.get('/final_summary/:user_id/:id/:id2', userController.user_final_summary);   
+router.get('/save_reservation/:user_id/:id/:id2', userController.user_save_reservation );
+router.get('/adjust_seats/:user_id/:id/:id2', userController.adjust_seats);  
+router.get('/adjust_seats_db/:user_id/:id/:id2', userController.adjust_seats_db); 
+router.get('/current_reservations/:user_id/:id', userController.user_Reservations);  
+router.delete('/delete_reservation/:id', userController.user_delete_res);  
+router.get('/user_flight_info/:user_id/:id/:id2', userController.user_find_flight_details);  
+router.get('/adjust_seats_db_again/:id', userController.delete_seats_from_db_user_deleted_reservation); 
+router.get('/email_me/:user_id/:id', userController.user_email_summary);    //not tested yet //
+
+router.get('/adjust_edit_seats/:user_id/:id/:id2', userController.edit_dep_seats_same_flight);    
+router.get('/get_old_seats/:id', userController.get_old_dep_seats); 
+router.get('/get_old_seats_id/:id', userController.get_old_dep_seats_id); 
+router.get('/get_number_of_passengers/:id', userController.get_number_of_passengers); 
+
+router.post('/change_seats/:user_id/:id/:id2', userController.get_new_seats_dep);
+router.post('/change_seats1/:user_id/:id/:id2', userController.get_new_seats_dep_id);
+router.post('/change_seats2/:user_id/:id/:id2', userController.adjust_res_with_new_dep_seats);
+
+
+router.post('/change_seats3/:user_id/:id/:id2', userController.get_new_seats_return);
+router.post('/change_seats4/:user_id/:id/:id2', userController.get_new_seats_return_id);
+router.post('/change_seats5/:user_id/:id/:id2', userController.adjust_res_with_new_return_seats);
+
+
+
+router.get('/adjust_edit_seats2/:user_id/:id/:id2', userController.edit_return_seats_same_flight );    
+router.get('/get_old_seats2/:id', userController.get_old_return_seats); 
+router.get('/get_old_seats_id2/:id', userController.get_old_return_seats_id ); 
+
+///edit _dep///
+router.post('/edit_search/:user_id/:id/:id2/:id3/:id4', userController.user_edit_dep_flight_search);
+router.get('/edit_search_result', userController.user_edit_dep_flight_search_results);    
+
+router.get('/edit_departure_seats/:user_id/:id/:id2', userController.user_edit_dep_flight_seats );   
+router.get('/edit_summary_dep/:user_id/:id/:id2/:id3/:id4', userController.user_edit_summary_dep );     
+                                                                                                
+
+router.get('/edit_dep_db/:user_id/:id/:id2/:id3/:id4', userController.user_edit_dep_adjust_db ); 
+router.get('/edit_res_db/:user_id/:id/:id2/:id3/:id4', userController.user_edit_dep_flight_res); 
+/// end of edit_dep///
+
+// edit_return///
+
+router.post('/edit_search2/:user_id/:id/:id2/:id3/:id4', userController.user_edit_return_flight_search);
+router.get('/edit_search_result2', userController.user_edit_return_flight_search_results);   
+
+router.get('/edit_return_seats/:user_id/:id/:id2', userController.user_edit_return_flight_seats);  
+router.get('/edit_summary_return/:user_id/:id/:id2/:id3/:id4', userController.user_edit_summary_return);  
+
+
+router.get('/edit_res_db2/:user_id/:id/:id2/:id3/:id4', userController.user_edit_return_flight_res); 
+router.get('/edit_return_db/:user_id/:id/:id2/:id3/:id4', userController.user_edit_return_adjust_db ); 
+
+/// end of edit_return//
+
+
+router.post('/update/:id', userController.update_user); 
+
+router.get('/user_info/:id', userController.user_info); 
+router.get('/lokma',userController.user_test)
 module.exports = router;

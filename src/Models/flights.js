@@ -59,6 +59,16 @@ const flightsSchema = new Schema({
     type: String,
     required: true
   },
+  Seats_Economy:[{
+  
+  }],
+  Seats_Bussiness:[{
+   
+  }],
+  booked:{//to know whether a booking happend in this flight or not //
+ type:String ,
+ default:"false"
+  },
   Bussiness_price :{
     type: String,
     required: true

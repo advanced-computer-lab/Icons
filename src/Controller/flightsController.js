@@ -1,14 +1,76 @@
 const Flights = require('../Models/flights');
 //create , serach , edit , delete , show all //
-const Seats = require('../Models/seats');
 var temp ;
-var temp1;
-var temp2;
-var flno;
-//CREATE FLIGHT //
-const flight_create = (req, res) => {
 
-    const flights= new Flights({
+//CREATE FLIGHT //
+const flight_create = async  (req, res) => {
+  var temp1 =  Number(req.body.Number_of_Economy_Seats)
+  var  temp2 = Number(req.body.Number_of_Business_Class_Seats)
+  const rows = []
+  const rows2 = []
+  var x = [] 
+  var x2 = []
+  var l =0;
+  var n=0;
+  var ll =0;
+  var nn=0;
+ var j = 1;
+ var jj=1;
+
+  for(var i = 1 ; i <= temp1 ;i++){
+    n++;
+    if(l==2){
+      i--;
+      x.push(null)
+      l=0;
+      continue ;
+    }
+
+     x.push({id:i,number:j,isSelected:false,isReserved:false})
+    
+
+   j++;
+   l++;
+   if(n==8){
+    j=1;
+    rows.push(x);
+    x = [] 
+    n=0;
+    l=0;
+   }
+  }
+  if(x.length >0){
+    rows.push(x);
+   }
+    for(var i = 1 ; i <= temp2 ;i++){
+    nn++;
+    if(ll==2){
+      i--;
+      x2.push(null)
+      ll=0;
+      continue ;
+    }
+
+     x2.push({id:i,number:jj,isSelected:false,isReserved:false})
+    
+
+   jj++;
+   ll++;
+   if(nn==8){
+    jj=1;
+    rows2.push(x2);
+    x2 = [] 
+    nn=0;
+    ll=0;
+   }
+  }
+  if(x2.length >0){
+    rows2.push(x2);
+   }
+
+
+//------------------------------------------------------------------------------------------------------//
+     const flights =   await new Flights({
     
         Flight_number: req.body.Flight_number,
         Departure_time: (req.body.Departure_time),
@@ -18,16 +80,28 @@ const flight_create = (req, res) => {
         Arrival_airport: req.body.Arrival_airport,
         Departure_airport: req.body.Departure_airport,
         Departure_date: Date.parse(req.body.Departure_date),
-        Arrival_date: Date.parse(req.body.Arrival_date)
-        
+        Arrival_date: Date.parse(req.body.Arrival_date),
+        Economy_price :req.body.Economy_price,
+        Baggage_allowance :req.body.Baggage_allowance,
+        Bussiness_price :req.body.Bussiness_price,
+        Availlable_Number_of_Business_Class_Seats: Number(req.body.Number_of_Business_Class_Seats),
+        Availlable_Number_of_Economy_Seats: Number(req.body.Number_of_Economy_Seats),
+        flight_duration :'2:30',
+        Seats_Bussiness:rows2,
+        Seats_Economy:rows
         
      } )
-     temp1 = Number(req.body.Number_of_Economy_Seats)
-     temp2 = Number(req.body.Number_of_Business_Class_Seats)
-      flno = req.body.Flight_number
+
     flights.save()
       .then(result => {
-        res.send(result);
+
+
+        //____________________________________________________________________________________________________________________//
+       
+       
+      
+    
+       res.send(result)
         res.status(200)
       })
       .catch(err => {
@@ -156,6 +230,7 @@ module.exports = {
     update_flight,
     flight_info,
     flight_findall2
+    // Adjust_seats
  
   }
 

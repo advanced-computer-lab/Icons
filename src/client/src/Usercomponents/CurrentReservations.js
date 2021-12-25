@@ -14,9 +14,10 @@ class CurrentReservations extends Component {
   }
 
   componentDidMount() {
+  console.log(this.props.match.params.user_id)
   
     axios
-    .get('http://localhost:8000/user/helper7/'+this.props.match.params.user_id)
+    .get('http://localhost:8000/user/current_reservations/'+this.props.match.params.user_id+"/"+this.props.match.params.id)
     
     .then(res => {
         this.setState({
@@ -29,15 +30,15 @@ class CurrentReservations extends Component {
     })
    
 
-    if(this.state.summarys.length == 0){
-        
-      this.setState({})
-    }
+    
 };
    
-
+handledelete = (id) =>{
+  this.props.history.push('/Reservation_Info/'+this.props.match.params.user_id+'/'+id);
+};
 
   render() {
+  
     const summarys = this.state.summarys;
 console.log(summarys)
     let summaryList;
@@ -46,7 +47,8 @@ console.log(summarys)
       summaryList = "there is Current_Reservations!";
     } else {
       summaryList = summarys.map((summary) =>
-        <CurrentReservationsCard summary={summary}  />
+        <CurrentReservationsCard summary={summary} handledelete = {this.handledelete} />
+     
       );
     
 
@@ -68,11 +70,7 @@ console.log(summarys)
           <div className="list">
                 {summaryList}
           </div>
-          {/* <Link to={`/Reservation_Info/${summaryList._id}`}>
-     <button type="button">
-         Proceed 
-     </button>
- </Link> */}
+      
         </div>
       </div>
     );

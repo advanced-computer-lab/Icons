@@ -15,7 +15,7 @@ class Reservation_Info extends Component {
   componentDidMount() {
      
        axios
-      .get('http://localhost:8000/user/reservation_info/'+this.props.match.params.id)
+      .get('http://localhost:8000/user/reservation_info/'+this.props.match.params.user_id+"/"+this.props.match.params.id)
       .then(res => {
          
         this.setState({
@@ -26,20 +26,23 @@ class Reservation_Info extends Component {
         console.log("Error from ShowFlightDetails");
       })
       axios
-      .get('http://localhost:8000/user/adjust_seats')
+      .get('http://localhost:8000/user/email_me/'+this.props.match.params.user_id+"/"+this.props.match.params.id)
       .then(res => {
-          
          
+        this.setState({
+          flights: res.data
+        })
       })
-      .catch(err =>{
-        console.log('Error from ShowFlightsList');
+      .catch(err => {
+        console.log("Error from ShowFlightDetails");
       })
+      
   };
 
   onDeleteClick (id) {
    
     axios
-    .get('http://localhost:8000/user/send_mail/'+this.props.match.params.id)
+    .get('http://localhost:8000/user/send_mail/'+this.props.match.params.user_id+"/"+this.props.match.params.id)
       .then(res => {
      
        
@@ -49,13 +52,11 @@ class Reservation_Info extends Component {
       })
 
 
-      console.log(id);
-
     axios
     .delete('http://localhost:8000/user/delete_reservation/'+this.props.match.params.id)
       .then(res => {
-        this.props.history.push("/Current_Reservations/"+this.props.match.params.user_id);
-       
+        alert("Reservation is canceled sucessfully !!")
+        this.props.history.push('/Current_Reservations/'+this.props.match.params.user_id);
       })
       .catch(err => {
      
@@ -76,7 +77,7 @@ class Reservation_Info extends Component {
           summaryList = "there is no Reservation record!";
         } else {
           summaryList = flights.map((summary) =>
-            <ReservationInfoCard summary={summary}  />
+            <ReservationInfoCard summary={summary} res_id = {this.props.match.params.id} />
         
           );
         }

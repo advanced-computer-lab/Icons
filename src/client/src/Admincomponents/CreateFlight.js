@@ -15,7 +15,10 @@ class CreateFlight extends Component {
             Arrival_airport: '',
             Departure_airport: '',
             Departure_date: '',
-            Arrival_date:''
+            Arrival_date:'',
+            Economy_price :'',
+            Baggage_allowance :'',
+            Bussiness_price :''
         };
       } 
 
@@ -26,7 +29,7 @@ class CreateFlight extends Component {
       onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
       };
-      onSubmit = e => {
+       onSubmit = e => {
         e.preventDefault();
     
         const data = {
@@ -39,9 +42,12 @@ class CreateFlight extends Component {
             Arrival_airport: this.state.Arrival_airport,
             Departure_airport: this.state.Departure_airport,
             Departure_date: this.state.Departure_date,
-            Arrival_date:this.state.Arrival_date
+            Arrival_date:this.state.Arrival_date,
+            Economy_price :this.state.Economy_price,
+            Baggage_allowance :this.state.Baggage_allowance,
+            Bussiness_price :this.state.Bussiness_price
         };
-
+  
 
         axios
         .post('http://localhost:8000/admin/create', data)
@@ -55,7 +61,10 @@ class CreateFlight extends Component {
             Arrival_airport: '',
             Departure_airport: '',
             Departure_date: '',
-            Arrival_date:''
+            Arrival_date:'',
+            Economy_price :'',
+            Baggage_allowance :'',
+            Bussiness_price :''
           })
           this.props.history.push('/');
         })
@@ -169,6 +178,39 @@ class CreateFlight extends Component {
                             name='Arrival_date'
                             className='form-control'
                             value={this.state.Arrival_date}
+                            onChange={this.onChange}
+                          />
+                        </div>
+                        <br />
+                        <div className='form-group'>
+                          <input
+                            type='text'
+                            placeholder='Bussiness_price'
+                            name='Bussiness_price'
+                            className='form-control'
+                            value={this.state.Bussiness_price}
+                            onChange={this.onChange}
+                          />
+                        </div>
+                        <br />
+                        <div className='form-group'>
+                          <input
+                            type='text'
+                            placeholder='Economy_price'
+                            name='Economy_price'
+                            className='form-control'
+                            value={this.state.Economy_price}
+                            onChange={this.onChange}
+                          />
+                        </div>
+                        <br />
+                        <div className='form-group'>
+                          <input
+                            type='text'
+                            placeholder='Baggage_allowance'
+                            name='Baggage_allowance'
+                            className='form-control'
+                            value={this.state.Baggage_allowance}
                             onChange={this.onChange}
                           />
                         </div>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Flight2 from '../Admincomponents/Flight2';
 
-class  UserSearchResults  extends Component {
+class  Edit_Flight_Search_Results  extends Component {
   constructor(props) {
     super(props);
     
@@ -16,29 +16,34 @@ class  UserSearchResults  extends Component {
   }
 
   componentDidMount() {
-    
+  
     axios
-      .get('http://localhost:8000/user/search_Results')
+      .get('http://localhost:8000/user/edit_search_result')
       .then(res => {
         this.setState({
           flights: res.data
           
+              
+          
           
           
         })
+
+
       })
       .catch(err =>{
+        alert('no flight mathces your search criteria');
         console.log('Error from ShowFlightsList');
       })
     
   };
 
   handledelete = (id) =>{
-    if(window.confirm("Are you sure you want to book this flight ")==false){
+    if(window.confirm('Are you sure you want to book this flight ?') == false){
 
     }
     else {
-  this.props.history.push('/returnflight_results/'+this.props.match.params.user_id+'/'+id);
+      this.props.history.push('/edit_flight_dep_seats/'+this.props.match.params.user_id+"/"+this.props.match.params.id+"/"+id+"/"+this.props.match.params.id3+"/"+this.props.match.params.id2);
     }
 };
   render() {
@@ -84,4 +89,4 @@ class  UserSearchResults  extends Component {
   }
 }
 
-export default UserSearchResults;
+export default Edit_Flight_Search_Results;
