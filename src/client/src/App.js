@@ -36,8 +36,14 @@ import Edit_Flight_Search from './Usercomponents/Edit_Flight_Search';
 import Edit_Flight_Search_Results from './Usercomponents/Edit_Flight_Search_Results';
 import Edit_Flight_Departure_seats from './Usercomponents/Edit_Flight_Departure_seats';    
 
-import Edit_Departure_Summary from './Usercomponents/Edit_Departure_Summary'; 
+import Edit_Departure_Summary from './Usercomponents/Edit_Departure_Summary';  
 
+
+import Edit_Flight_Search_Return from './Usercomponents/Edit_Flight_Search_Return'; 
+
+import Edit_Flight_Return_Search_Results from './Usercomponents/Edit_Flight_Return_Search_Results'; 
+import Edit_Flight_Return_seats from './Usercomponents/Edit_Flight_Return_Seats'; 
+import Edit_Return_Summary from './Usercomponents/Edit_Return_Summary'; 
 
 
 class App extends Component {
@@ -75,11 +81,23 @@ class App extends Component {
           <Route path='/edit_dep_seats/:user_id/:id/:id2' component={Edit_Deperature_seats} />
 
           <Route path='/res_return_flight/:user_id/:id/:id2/:id3/:id4' component={Sel_Res_Return} />
+
           <Route path='/edit_return_seats/:user_id/:id/:id2' component={Edit_Return_seats} /> 
+
           <Route path='/edit_flight_search/:user_id/:id/:id2/:id3/:id4' component={Edit_Flight_Search} />
           <Route path='/edit_flight_search_results/:user_id/:id/:id2/:id3' component={Edit_Flight_Search_Results} />
           <Route path='/edit_flight_dep_seats/:user_id/:id/:id2/:id3/:id4' component={Edit_Flight_Departure_seats} />
           <Route path='/edit_flight_dep_summary/:user_id/:id/:id2/:id3/:id4' component={Edit_Departure_Summary} />
+
+
+
+          <Route path='/edit_flight_search_return/:user_id/:id/:id2/:id3/:id4' component={Edit_Flight_Search_Return} />
+          <Route path='/edit_flight_return_search_results/:user_id/:id/:id2/:id3' component={Edit_Flight_Return_Search_Results} />
+
+          <Route path='/edit_flight_return_seats/:user_id/:id/:id2/:id3/:id4' component={Edit_Flight_Return_seats} />
+          <Route path='/edit_flight_return_summary/:user_id/:id/:id2/:id3/:id4' component={Edit_Return_Summary} />
+
+
         </div>
       </Router>
     );
