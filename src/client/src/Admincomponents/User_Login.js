@@ -49,7 +49,7 @@ class User_Login extends Component {
           console.log(res.data)
           // this.props.history.push('/search/'+res.data);
           // this.props.history.push('/login')
-          this.props.history.push('/Home/'+res.data)
+          this.props.history.push('/search/'+res.data)
         })
         .catch(err => {
         //   console.log("Error in CreateFlight!");
