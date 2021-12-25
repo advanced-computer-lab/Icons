@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Grid,Paper, Avatar, TextField, Button, Typography,Link } from '@material-ui/core'
+import AirplanemodeActiveOutlinedIcon from '@mui/icons-material/AirplanemodeActiveOutlined';
+
 
 class Edit_Flight_Search extends Component {
     constructor(pros) {
@@ -73,77 +76,63 @@ class Edit_Flight_Search extends Component {
      
     };
  render (){
+  const paperStyle={padding :20,height:'105vh',width:400, margin:"20px auto"}
+  const avatarStyle={backgroundColor:'#1bbd7e'}
+  const btnstyle={margin:'8px 0'}
      return (
-        <div className = 'UserSearchFlight' >
+    
 
         <form Validate onSubmit={this.onSubmit}>
                       
         
         
-                   
-                        <br />
-                        <br />
-                        <div className='form-group'>
+                      <Grid >
+            <Paper elevation={10} style={paperStyle}>
+                <Grid align='center'>
+                     <Avatar style={avatarStyle}><AirplanemodeActiveOutlinedIcon/></Avatar>
+                    <h2>Search Flight</h2>
+                
+                </Grid>
+                <Grid item>
+         
                         <label for="cabin">Cabin class: </label>
-                        <select name = 'cabin' id = 'cabin' value ={this.state.cabin} onChange={this.onChange}>
+                        <select name = 'cabin' id = 'cabin' value ={this.state.cabin} onChange={this.onChange} >  
                         <  option  value='Economy' >Economy</option>
                         <option value='Bussiness'>Bussines</option>
                         
                          
                         </select>
-                      
                         
-                        
-                        </div>
-                      
-   
-                      
-                       
-                       
-                       
-                     
-                      
-                        <br />
-                        <div className='form-group'>
-                          <label>
-                            Departure Date :
-                            </label>
-                            
-                          <input
-                            type='date'
-                            required 
-                            placeholder='Departure_date'
-                            name='Departure_date'
-                            className='form-control'
-                            value={this.state.Departure_date}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <div className='form-group'>
-                        <label>
-                            Arrival Date :
-                           
-                            </label>
-                            
-                          <input 
-                            type='date'
-                            required 
-                            placeholder='Arrival_date'
-                            name='Arrival_date'
-                            className='form-control'
-                            value={this.state.Arrival_date}
-                            onChange={this.onChange}
-                          />
-                        </div>
-                        <br />
-                        <input
-                            type="submit"
-                            className="btn btn-outline-warning btn-block mt-4"
-                            value='search'
-                        />
+                        </Grid >
+                
+               <h4>Depature Date</h4>
+                <TextField  
+                placeholder='Enter Depature date' 
+                type={'date'}
+                name='Departure_date'
+                value={this.state.Departure_date}
+                onChange={this.onChange}
+                fullWidth required/>
+                
+            <h4>Arrival Date</h4>
+                <TextField 
+                 type={'date'}
+                 name='Arrival_date'
+                 value={this.state.Arrival_date}
+                 onChange={this.onChange}
+                fullWidth required/>
+
+                <Button type='submit'
+                 color='primary' 
+                 variant="contained" 
+                 style={btnstyle}
+                  fullWidth>Search</Button>
+                
+                
+            </Paper>
+        </Grid>
          </form>
-            </div>
+          
      )
  }
 

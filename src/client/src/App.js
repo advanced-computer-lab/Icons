@@ -43,7 +43,9 @@ import Edit_Flight_Search_Return from './Usercomponents/Edit_Flight_Search_Retur
 
 import Edit_Flight_Return_Search_Results from './Usercomponents/Edit_Flight_Return_Search_Results'; 
 import Edit_Flight_Return_seats from './Usercomponents/Edit_Flight_Return_Seats'; 
-import Edit_Return_Summary from './Usercomponents/Edit_Return_Summary'; 
+import Edit_Return_Summary from './Usercomponents/Edit_Return_Summary';   
+import User_Home from './Usercomponents/User_Home';   
+
 
 
 class App extends Component {
@@ -51,6 +53,7 @@ class App extends Component {
     return (
       <Router>
         <div>
+        {/* <Route  path='/Home' component={User_Home} /> */}
         <Route exact path='/' component={ViewFlights} />
           <Route path='/create_flight' component={CreateFlight} />
           <Route path='/update_flight/:id' component={UpdateFlight} />
@@ -73,8 +76,8 @@ class App extends Component {
           <Route path='/Guest_Summary/:user_id/:id/:id2' component={Guest_Summary} />
 
   
-          <Route path='/test' component={Sign_Up} />
-          <Route path='/test2' component={User_Login} />
+          <Route path='/sign_up' component={Sign_Up} />
+          <Route path='/login' component={User_Login} />
           <Route path='/change_passowrd/:id' component={Change_Password} />
 
           <Route path='/res_dep_flight/:user_id/:id/:id2/:id3/:id4' component={Sel_Res_Dep} />

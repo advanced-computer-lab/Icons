@@ -247,6 +247,7 @@ const user_flight_find = (req, res) => {
 
 //_________________________________________________________________________________________________________________________//
 const user_regisertaion = async(req,res) =>{
+  console.log("true")
   try {
   const {FirstName,LastName,Email,HomeAddress ,PassportNumber,PhoneNumber,UserName, Password } = req.body;
   

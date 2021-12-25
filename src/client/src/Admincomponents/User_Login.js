@@ -47,12 +47,15 @@ class User_Login extends Component {
            Password:''
           })
           console.log(res.data)
-          this.props.history.push('/search/'+res.data);
+          // this.props.history.push('/search/'+res.data);
+          // this.props.history.push('/login')
+          this.props.history.push('/Home/'+res.data)
         })
         .catch(err => {
         //   console.log("Error in CreateFlight!");
+        console.log(err)
       alert("Invalid Username or password") 
-      // this.props.history.push('/')
+     
       
      
         })
@@ -71,8 +74,10 @@ class User_Login extends Component {
                <Avatar style={avatarStyle}><AirplanemodeActiveOutlinedIcon/></Avatar>
               <h2>Login</h2>
           </Grid>
-          {/* <form noValidate onSubmit={this.onSubmit}> */}
-          <TextField label='Username' 
+          <form noValidate onSubmit={this.onSubmit}>
+          < TextField
+          name = "UserName"
+           label='UserName' 
           placeholder='Enter username' 
           
           onChange={this.onChange}
@@ -81,6 +86,7 @@ class User_Login extends Component {
           fullWidth required/>
          
           <TextField label='Password' 
+          name = "Password"
           placeholder='Enter password' 
           type='password' 
           value={this.state.Password}
@@ -97,9 +103,9 @@ class User_Login extends Component {
            variant="contained" 
            style={btnstyle} fullWidth>Login</Button>
           
-           {/* </form> */}
+           </form>
           <Typography > Do you have an account ?
-               <Link to="/Register" >
+               <Link to="/sign_up" >
                   Register 
           </Link>
           </Typography>

@@ -14,6 +14,7 @@ class CurrentReservations extends Component {
   }
 
   componentDidMount() {
+  console.log(this.props.match.params.user_id)
   
     axios
     .get('http://localhost:8000/user/current_reservations/'+this.props.match.params.user_id+"/"+this.props.match.params.id)
@@ -37,6 +38,7 @@ handledelete = (id) =>{
 };
 
   render() {
+  
     const summarys = this.state.summarys;
 console.log(summarys)
     let summaryList;

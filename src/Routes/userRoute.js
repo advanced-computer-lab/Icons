@@ -76,5 +76,10 @@ router.get('/edit_res_db2/:user_id/:id/:id2/:id3/:id4', userController.user_edit
 router.get('/edit_return_db/:user_id/:id/:id2/:id3/:id4', userController.user_edit_return_adjust_db ); 
 
 /// end of edit_return//
+
+
+router.post('/update/:id', userController.update_user); 
+
+router.get('/user_info/:id', userController.user_info); 
 router.get('/lokma',userController.user_test)
 module.exports = router;
