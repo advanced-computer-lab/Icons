@@ -14,32 +14,13 @@ var temp3;
 var temp4;
 var temp5 ;
 var temp7 ;
-// var flightno1;
-// var flightno2;
 var cabin;
-// var loggedin;
-// var carla;
-// var helper1;
-// var helper2;
-// var helper5;
-// var x = [] 
-// var x_id = []
-// var y = [] 
-// var y_id = []
 var dep_chosen_id = []
 var dep_chosen = []
 var return_chosen = []
 var return_chosen_id = []
-// var new_dep_seats = []
-// var new_dep_seats_id = []
-
-// var new_return_seats = []
-// var new_return_seats_id = []
-// var megan;
 var mail_user ;
 var temp100;
-// var no_of_availlable_seats;
-// var no_of_availlable_seats2;
 var  booking_number;
 var pricy = 0;
 var cabina ;
@@ -148,7 +129,7 @@ const user_flight_find = (req, res) => {
             res.status(200)
     
          
-           flightno2 =   result.Flight_number
+          
           })
           .catch(err => {
               console.log(err)
@@ -224,7 +205,7 @@ const user_flight_find = (req, res) => {
         
           const msg = {
               from: 'projectacl@hotmail.com', // sender address
-              to: "ahmedlokma22@gmail.com", // list of receivers
+              to:  mail_user, // list of receivers
             //  to:mail_user
               subject: "Cancelation", // Subject line
               text: "Unfourtanley  you canceled your reservation and these amount will be refunded back to you" + ""+ temp100 // plain text body
@@ -1314,7 +1295,7 @@ const z = await Reservations.find({_id:req.params.id}).then(result =>{
 
   const msg = {
       from: 'projectacl@hotmail.com', // sender address
-      to: 'ahmedlokma22@gmail.com', // list of receivers
+      to:  mail_user, // list of receivers
     //  to:mail_user
       subject: "Summary of reservation", // Subject line
       text: "This is summary of your reservation " + x // tazbeet shakl bokra msh now //

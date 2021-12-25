@@ -25,6 +25,17 @@ class Reservation_Info extends Component {
       .catch(err => {
         console.log("Error from ShowFlightDetails");
       })
+      axios
+      .get('http://localhost:8000/user/email_me/'+this.props.match.params.user_id+"/"+this.props.match.params.id)
+      .then(res => {
+         
+        this.setState({
+          flights: res.data
+        })
+      })
+      .catch(err => {
+        console.log("Error from ShowFlightDetails");
+      })
       
   };
 

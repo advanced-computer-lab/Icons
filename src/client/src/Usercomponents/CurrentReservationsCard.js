@@ -31,11 +31,7 @@ for(var i =0 ;i<summary.Departure_seats.length;i++){
                     Departure Flight
                 </h3> 
                 
-                {/* <h2>
-                    <Link to={`/Reservation_Info/${summary._id}/${summary.User_id}`}>
-                    <p> { summary.Departure_Flight_number } </p>
-                    </Link>
-                </h2> */}
+                
                    <p>  Flight Number : {summary.Departure_Flight_number}</p>
                   
                    <p> Departure Time : { summary.Departure_Flight_Departure_time}</p>
@@ -57,11 +53,7 @@ for(var i =0 ;i<summary.Departure_seats.length;i++){
                     
                    Return Flight
                 </h3>
-                {/* <h2>
-                    <Link to={`/Reservation_info/${summary._id}/${summary.User_id}`}>
-                    <p> { summary.Return_Flight_number } </p>
-                    </Link>
-                </h2> */}
+                
                 
                 <p>  Flight Number : {summary.Return_Flight_number}</p>
                   <p> Departure Time : { summary.Return_Flight_Departure_time}</p>

@@ -108,14 +108,14 @@ class UserSearch extends Component {
   
      return (
 
-     
+      
       <Grid>
       <Paper elevation={10} style={paperStyle}>
           <Grid align='center'>
                <Avatar style={avatarStyle}><AirplanemodeActiveOutlinedIcon/></Avatar>
               <h2>Search Flight</h2>
           </Grid>
-          <div className='form-group'>
+          <form noValidate onSubmit={this.onSubmit}> 
                   <label for="cabin">Cabin class: </label>
                   <select name = 'cabin' id = 'cabin' value ={this.state.cabin} onChange={this.onChange}>  
                   <  option  value='Economy' >Economy</option>
@@ -123,7 +123,7 @@ class UserSearch extends Component {
                   
                    
                   </select>
-                  </div>
+                 
           <TextField label='Number of Adults' 
           placeholder='Enter Number of adults' 
           name='number_of_people'
@@ -175,7 +175,7 @@ class UserSearch extends Component {
               
 
           <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Search</Button>
-          
+          </form>
           
       </Paper>
   </Grid>

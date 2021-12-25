@@ -49,3 +49,34 @@ const Flight3 = (props) => {
 };
 
 export default Flight3;
+// import axios from 'axios';
+// import React from 'react';
+// import { Link } from 'react-router-dom';
+// import FlightCard3 from './FlightCard3';
+// import { Container, Grid } from '@mui/material';
+
+
+
+
+// const Flight3 = (props) => {
+//     const  flight  = props.flight;
+    
+//     return(
+//         <div className="flight-container">
+       
+//             <div className="desc">
+//             <Container  columnSpacing={{md: 3, lg: 4}} rowSpacing={2} spacing={3}>
+//                 <Grid container margin={10} paddingLeft={30}>
+//                     <Grid item md={6}>    
+//                      {/* <FlightCard3 flight = {flight}> 
+//                      </FlightCard3>   */}
+//                        <FlightCard3 flight = {flight} handledelete = {this.handledelete}></FlightCard3>
+//                   </Grid>
+//                 </Grid>
+//              </Container>
+//             </div>
+//         </div>
+//     )
+// };
+
+// export default Flight3;
