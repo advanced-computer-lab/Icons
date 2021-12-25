@@ -42,17 +42,7 @@ export default class Edit_Flight_Departure_seats extends Component {
  
     
  
-    // axios
-    // .get('http://localhost:8000/user/seats')
-    // .then(res => {
-       
-      
-    //     const persons = Number(res.data);
-    //     this.setState({ persons });
-    // })
-    // .catch(err => {
-    //   console.log("Error from ShowFlightDetails");
-    // })
+    
 
 
      axios
