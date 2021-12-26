@@ -10,8 +10,8 @@ Adel Henawy (backend and frontend): reserve chosen flight(return) , deatils of r
 Adham Tarek : (backend and front end ) : view all current reserved flights , cancel reservation , confirm canclation and Ux 
  Moustafa : (backend and front end) : existing user summary ( req 24) , email user with refund amount , update user info 
  sprint 3
- Ahmed Tamer : Backend , routes , front-end pages 
- Marwan Ayman : Ui 
- Moustafa : Ui
- Adel Heanwy : Readmefile
- Adham : Login and regisetration 
+ Ahmed Tamer : Backend , routes , front-end pages , UI for seats, effiecency
+ Marwan Ayman : UI/UX (UI: output results, learnability, visibility), frontend pages 
+ Moustafa : UI (login, regisetration, forms)
+ Adel Heanwy : Readmefile, Login
+ Adham : Regisetration, Change password, Requirements 30 and 30.1 

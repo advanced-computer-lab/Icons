@@ -33,13 +33,14 @@ class Guest_Summary extends Component {
    
 onSubmit = e => {
   e.preventDefault();
+
  
 
-if(this.props.match.params.id == "undefined"){
-alert('you need to login')
-
-this.props.history.push('/test2')
-}
+  if(this.props.match.params.user_id == "undefined"){
+    alert('you need to login')
+    
+    this.props.history.push('/login')
+    }
 else {
   this.props.history.push('/Departure_seats/'+this.props.match.params.user_id+'/'+this.props.match.params.id+"/"+this.props.match.params.id2);
 }

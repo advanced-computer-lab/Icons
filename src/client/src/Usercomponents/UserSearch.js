@@ -24,9 +24,13 @@ class UserSearch extends Component {
         };
       } 
 
-
-    
-       
+      onSubmit2 = e => {
+        e.preventDefault();
+        this.props.history.push('/Current_Reservations/' + this.props.match.params.user_id)   };
+      
+      onSubmit3 = e => {
+       e.preventDefault();
+       this.props.history.push('/Update_Info/' + this.props.match.params.user_id)   };
 
       onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
@@ -109,7 +113,14 @@ class UserSearch extends Component {
      return (
 
       
-      <Grid>
+      
+      <Grid align='center'>
+        <Grid item md={6}>
+        <Button type='submit'  onClick = {this.onSubmit2}color='primary' variant="contained" style={btnstyle} fullWidth>My Reservations</Button>
+        </Grid>
+        <Grid item md={6}>
+        <Button type='submit'  onClick = {this.onSubmit3}color='primary' variant="contained" style={btnstyle} fullWidth>Edit Personal Information</Button>
+        </Grid>
       <Paper elevation={10} style={paperStyle}>
           <Grid align='center'>
                <Avatar style={avatarStyle}><AirplanemodeActiveOutlinedIcon/></Avatar>
@@ -123,6 +134,7 @@ class UserSearch extends Component {
                   
                    
                   </select>
+
                  
           <TextField label='Number of Adults' 
           placeholder='Enter Number of adults' 
@@ -160,7 +172,6 @@ class UserSearch extends Component {
           <TextField  
             type={'date'}
             name='Departure_date'
-            
             value={this.state.Departure_date}
             onChange={this.onChange}
             fullWidth required/>
