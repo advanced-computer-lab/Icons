@@ -204,3 +204,27 @@ const user_search_result_return = (req,res) =>{
 
     }
 
+
+    const user_login = async(req,res)=>{
+      try {
+      const { UserName, Password } = req.body;
+      const user = await Users.findOne({ UserName });
+      if (user && (await bcrypt.compare(Password, user.Password))) {
+        // Create token
+        const token = jwt.sign(
+          { _id: user._id,UserName},
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "2h",
+          }
+        );
+    
+        res.send(user._id)
+      }
+      else {
+      res.status(400).send("Invalid Credentials");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    }
