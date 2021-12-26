@@ -31,18 +31,18 @@ const Flight3 = (props) => {
                 
                 <p>Availlable Economy seats : {flight.Availlable_Number_of_Economy_Seats}</p>
 
-<p>Availlable Bussiness  seats : {flight.Availlable_Number_of_Business_Class_Seats}</p>
+                <p>Availlable Bussiness  seats : {flight.Availlable_Number_of_Business_Class_Seats}</p>
 
-<p>Economy Seat price : {flight.Economy_price}</p>
+                <p>Economy Seat price : {flight.Economy_price}</p>
 
-<p>Bussiness Seat price : {flight.Bussiness_price }</p>
+                <p>Bussiness Seat price : {flight.Bussiness_price }</p>
 
-<p>Flight Duration : {flight.flight_duration}</p> 
+                <p>Flight Duration : {flight.flight_duration}</p> 
                 
-<p>Baggae allowance : {flight. Baggage_allowance }</p> 
-<button onClick={()=> props.handledelete(flight.Flight_number)}>
-                delete
-            </button>
+                <p>Baggae allowance : {flight. Baggage_allowance }</p> 
+                    <button onClick={()=> props.handledelete(flight.Flight_number)}>
+                             delete
+                     </button>
             </div>
         </div>
     )

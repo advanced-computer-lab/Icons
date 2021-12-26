@@ -31,7 +31,8 @@ class FlightInfo extends Component {
     axios
     .delete('http://localhost:8000/admin/delete_flight/'+id)
       .then(res => {
-        this.props.history.push("/");
+        alert('Flight Was Deleted Successfully');
+        this.props.history.push("/view_all");
       })
       .catch(err => {
         console.log("Error form ShowFlightDetails_deleteClick");

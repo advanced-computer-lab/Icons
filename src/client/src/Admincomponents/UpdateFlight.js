@@ -71,17 +71,21 @@ class UpdateFlight extends Component {
     axios
       .post('http://localhost:8000/admin/update/'+this.props.match.params.id, data)
       .then(res => {
-        this.props.history.push('/');
+        
       })
       
       .catch(err => {
+        alert('Something went wrong! ... error in update flight');
         console.log("Error in flight!");
       })
+      
+      alert('Flight was updated successfully'); 
+      this.props.history.push('/view_all');
   };
 
 
   render() {
-    const paperStyle={padding :20,height:'105vh',width:400, margin:"20px auto"}
+    const paperStyle={padding :20,height:'30%',width:'30%', margin:"20px auto"}
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'8px 0'}
     return (

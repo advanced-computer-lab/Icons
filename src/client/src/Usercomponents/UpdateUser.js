@@ -69,9 +69,15 @@ class UpdateUser extends Component {
       this.props.history.push('/');
   };
 
+  onEmail = e => {
+    e.preventDefault();
+    this.props.history.push('/change_password/' + this.props.match.params.user_id);
+       };
+
+
 
   render() {
-    const paperStyle={padding :20,height:'70vh',width:280, margin:"50px auto"}
+    const paperStyle={padding :20,height:'30%',width:'30%', margin:"50px auto"}
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const btnstyle={margin:'8px 0'}
     return (
@@ -124,6 +130,15 @@ class UpdateUser extends Component {
            variant="contained" 
            style={btnstyle}
             fullWidth>Update</Button>
+
+          <h4></h4>
+
+          <Button
+          type='submit'
+          color='primary' 
+          variant="contained" 
+          onClick = {this.onEmail}
+          style={btnstyle} >Change Password</Button>
           
           </form>
       </Paper>
@@ -134,83 +149,6 @@ class UpdateUser extends Component {
 
 
 
-      //   <div className="UpdateFlight">
-      //   <div className="container">
-      //     <div className="row">
-      //       <div className="col-md-8 m-auto">
-      //         <br />
-             
-      //       </div>
-      //       <div className="col-md-8 m-auto">
-      //         <h1 className="display-4 text-center">Edit User</h1>
-      //         <p className="lead text-center">
-      //             Update User's Info
-      //         </p>
-      //       </div>
-      //     </div>
-
-      //     <div className="col-md-8 m-auto">
-      //     <form noValidate onSubmit={this.onSubmit}>
-      //       <div className='form-group'>
-      //         <label htmlFor="First_name">First name</label>
-      //         <input
-      //           type='text'
-      //           placeholder={this.state.FirstName}
-      //           name='First_name'
-      //           className='form-control'
-      //           value={this.state.FirstName}
-      //           onChange={this.onChange}
-      //         />
-      //       </div>
-      //       <br />
-
-      //       <div className='form-group'>
-      //       <label htmlFor="Departure_time">Last name</label>
-      //         <input
-      //           type='text'
-      //           placeholder={this.state.LastName}
-      //           name='Last_name'
-      //           className='form-control'
-      //           value={this.state.LastName}
-      //           onChange={this.onChange}
-      //         />
-      //       </div>
-      //       <br />
-      //       <div className='form-group'>
-      //       <label htmlFor="Departure_time">PassportNumber</label>
-      //         <input
-      //           type='text'
-      //           placeholder={this.state.PassportNumber}
-      //           name='Last_name'
-      //           className='form-control'
-      //           value={this.state.PassportNumber}
-      //           onChange={this.onChange}
-      //         />
-      //       </div>
-      //       <br />
-
-      //       <div className='form-group'>
-      //       <label htmlFor="Email">Email</label>
-      //         <input
-      //           type='email'
-      //           placeholder={this.state.Email}
-      //           name='Email'
-      //           className='form-control'
-      //           value={this.state.Email}
-      //           onChange={this.onChange}
-      //         />
-      //       </div>
-      //       <br />
-
-           
-      //       <br />
-
-      //       <button type="submit" className="btn btn-outline-info btn-lg btn-block">Update User</button>
-      //       </form>
-      //     </div>
-
-      //   </div>
-      // </div>
     );
   }
 }
